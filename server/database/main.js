@@ -14,7 +14,7 @@ const initializeMariaDB = async () => {
 const executeSQL = async (query) => {
   try {
     conn = await pool.getConnection();
-    const res = await conn.query(query);
+    const res = await conn.query(conn.escape(query));
     conn.end();
     return res;
   } catch (err) {
@@ -28,15 +28,16 @@ const initializeDBSchema = async () => {
       id INT NOT NULL AUTO_INCREMENT,
       name VARCHAR(255) NOT NULL,
       password VARCHAR(255) NOT NULL,
-      PRIMARY KEY (id)
+      PRIMARY KEY (id),
+      UNIQUE KEY (name)
     );`;
     await executeSQL(userTableQuery);
     const messageTableQuery = `CREATE TABLE IF NOT EXISTS publicmessages (
       id INT NOT NULL AUTO_INCREMENT,
-      user_id INT NOT NULL,
+      user_name INT NOT NULL,
       message VARCHAR(255) NOT NULL,
       PRIMARY KEY (id),
-      FOREIGN KEY (user_id) REFERENCES users(id)
+      FOREIGN KEY (user_name) REFERENCES users(name)
     );`;
     await executeSQL(messageTableQuery);
     const groupChatsQuery = `CREATE TABLE IF NOT EXISTS groupchats (

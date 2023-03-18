@@ -1,6 +1,6 @@
 {
-  "name": "321-project-starter",
-  "version": "1.0.0",
+  "name": "321",
+  "version": "1.0.1",
   "main": "app.js",
   "license": "MIT",
   "scripts": {

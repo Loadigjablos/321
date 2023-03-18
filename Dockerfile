@@ -9,7 +9,7 @@ COPY . "package.json"
 COPY . "package-lock.json"
 
 # Install the dependencies
-RUN "yarn install"
+RUN "npm install"
 
 # Copy the source code to the container
 COPY "app.js" .
