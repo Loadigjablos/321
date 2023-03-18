@@ -2,16 +2,22 @@
 FROM node:18
 
 # Set the working directory inside the container
-WORKDIR ...
+WORKDIR /app
 
 # Copy the package.json and package-lock.json files to the container
-COPY ...
+COPY . "package.json"
+COPY . "package-lock.json"
 
 # Install the dependencies
-RUN ...
+RUN "yarn install"
 
 # Copy the source code to the container
-COPY ...
+COPY "app.js" .
+COPY "client" .
+COPY "server" .
 
 # Start the server when the container starts
-CMD ...
+ENTRYPOINT ["node", "./app.js"]
+
+# Expose The Server To The Network With Port 80
+EXPOSE 80
