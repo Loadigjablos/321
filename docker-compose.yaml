@@ -15,8 +15,6 @@ services:
     ports:
       - 3306:3306
 
-  
-
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     depends_on:
@@ -28,6 +26,11 @@ services:
       - MYSQL_ROOT_PASSWORD=supersecret123
     ports:
       - 9200:80
+
+  webserver:
+    image: dominicstreit/321
+    ports:
+      - 3000
 
 volumes:
   m321_project_mariadb:

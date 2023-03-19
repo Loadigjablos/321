@@ -1,10 +1,7 @@
 const { createToken, validateToken } = require("../validation/token");
 const {
-  registerNewUser,
-  deleteUser,
-  getOneUserById,
-  getOneUserByName,
-  getAllUsers,
+    registerNewUser, deleteUserbyId, getOneUserById,
+    getOneUserByName, getAllUsers 
 } = require("../database/main");
 
 //source: https://flaviocopes.com/node-request-data/
