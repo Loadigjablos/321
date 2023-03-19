@@ -1,10 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+* {
+    font-family: B612;
+}
 div {
     display: block;
     box-sizing: border-box;
 }
+img {
+    vertical-align: middle;
+}
 body {
     font-family: 'Roboto', sans-serif;
+}
+#MessageField:empty::before {
+    content:attr(data-placeholder);
+    color:gray;
 }
