@@ -1,13 +1,13 @@
-const { register, login, deleteMyself, getAllUsers } = require("./user");
+const { register, login, deleteMyself, getAllUsersInterface } = require("./user");
 const {} = require("./groupchat");
 
 const initializeAPI = (app) => {
     // default REST api endpoint
   
-    app.post("/api/register", register);
-    app.post("/api/login", login);
-    app.delete("/api/user", deleteMyself);
-    app.get("/api/users", getAllUsers);
+    app.post("/api/Register", register);
+    app.post("/api/Login", login);
+    app.delete("/api/User", deleteMyself);
+    app.get("/api/Users", getAllUsersInterface);
 };
 
 module.exports = { initializeAPI };

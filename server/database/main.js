@@ -48,9 +48,15 @@ const initializeDBSchema = async () => {
     await executeSQL(groupChatsQuery);
   };
 
-  const {} = require("./user");
+  const {
+    registerNewUser, deleteUser, getOneUserById,
+    getOneUserByName, getAllUsers 
+  } = require("./user");
+
   const {} = require("./groupchat");
 
 module.exports = {
-    executeSQL, initializeMariaDB, initializeDBSchema
+    executeSQL, initializeMariaDB, initializeDBSchema,
+    registerNewUser, deleteUser, getOneUserById,
+    getOneUserByName, getAllUsers 
 };

@@ -10,6 +10,10 @@ const { initializeMariaDB, initializeDBSchema } = require("./server/database/mai
 const app = express();
 const server = http.createServer(app);
 
+// Middleware used for the session token
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 // create a livereload server
 const env = process.env.NODE_ENV || "development";
 if (env !== "production") {
@@ -27,7 +31,7 @@ if (env !== "production") {
 app.use(express.static("client"));
 // route for the homepage
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/client/index.html");
+  res.sendFile(__dirname + "/client/HTML/index.html");
 });
   // Initialize the websocket server
   initializeWebsocketServer(server);
@@ -37,8 +41,8 @@ app.get("/", (req, res) => {
   // Allowing top-level await
   (async function () {
   // Initialize the database
-  await initializeMariaDB();
-  await initializeDBSchema();
+  //await initializeMariaDB();
+  //await initializeDBSchema();
   //start the web server
   const serverPort = process.env.PORT || 3000;
   server.listen(serverPort, () => {

@@ -1,70 +1,122 @@
-const { getOneUserByName } = require("./user");
-const jwt = require('jsonwebtoken')
+const { createToken, validateToken } = require("../validation/token");
+const {
+  registerNewUser,
+  deleteUser,
+  getOneUserById,
+  getOneUserByName,
+  getAllUsers,
+} = require("../database/main");
+
+//source: https://flaviocopes.com/node-request-data/
 
 /**
- * 
- * @param req 
- * @param res 
+ *
+ * @param req
+ * @param res
  */
 const register = (req, res) => {
-    const { name, password } = req.body;
-  
-  };
-  
-  /**
-   *  Source: https://github.com/bgdnvk/nodejs-auth
-   * @param req 
-   * @param res 
-   */
-  const login = (req, res) => {
-    const { name, password } = req.body;
-
-    const validUsername = getOneUserByName(name);
-
-    if (!validUsername.name) {
-        res.status(404).json({
-            message: "User was not found"
+    try {
+        let data = [];
+        req.on("data", (chunk) => {
+          data.push(chunk);
         });
-    }
+        req.on("end", () => {
+    
+          const name = JSON.parse(data).name;
+          const password = JSON.parse(data).password;
+    
+          if (!name) {
+            res.status(404).json({
+              message: "User was not found",
+            });
+          }
+          if (!password && password.lenght > 9) {
+            res.status(404).json({
+              message: "User was not found",
+            });
+          }
 
-    const token = jwt.sign(
-        { username },
-        process.env.TOKEN_KEY,
-        {
-            expiresIn: 72000
-        }
-    )
-  
-    res.cookie("token", token, {
-        httpOnly: true,
-        maxAge: 60000, // 6h
-    });
-    res.status(200).json({
-        message: "Login successful"
-    });
-  };
-  
-  /**
-   * 
-   * @param req 
-   * @param res 
-   */
-  const deleteMyself = (req, res) => {
-  
-  };
-  
-  /**
-   * 
-   * @param req 
-   * @param res 
-   */
-  const getAllUsers = (req, res) => {
-  
-    res.send("Hello World!");
-    res.status(401).json({
-        message: "Login not successful",
-        error: "Password is incorrect",
-    });
+          registerNewUser(name, password);
+    
+          res.status(200).json({
+            message: "Login successful",
+          });
+        });
+      } catch (e) {
+        console.log(e);
+        res.status(400).json({
+          message: "Registration Failed",
+        });
+      }
 };
 
-module.exports = { register, login, deleteMyself, getAllUsers };
+/**
+ *
+ * @param req
+ * @param res
+ */
+const login = (req, res) => {
+  try {
+    let data = [];
+    req.on("data", (chunk) => {
+      data.push(chunk);
+    });
+    req.on("end", () => {
+      const user = getOneUserByName(JSON.parse(data).name);
+
+      if (!user.name) {
+        res.status(404).json({
+          message: "User was not found",
+        });
+      }
+      if (!user.password !== JSON.parse(data).password) {
+        res.status(404).json({
+          message: "User was not found",
+        });
+      }
+
+      res.cookie("token",
+        createToken(user.name), {
+        httpOnly: true,
+        maxAge: 600000, // 6h
+      });
+
+      res.status(201).json({
+        message: "Login successful",
+      });
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({
+      message: "Login Failed",
+    });
+  }
+};
+
+/**
+ *
+ * @param req
+ * @param res
+ */
+const deleteMyself = (req, res) => {
+  const user = validateToken(req.cookies.token).name;
+
+  res.status(201).json({
+    message: "Deleted a user",
+  });
+};
+
+/**
+ *
+ * @param req
+ * @param res
+ */
+const getAllUsersInterface = (req, res) => {
+    const user = validateToken(req.cookies.token).name;
+  res.status(401).json({
+    message: "Login not successful",
+    error: "Password is incorrect",
+  });
+};
+
+module.exports = { register, login, deleteMyself, getAllUsersInterface };
