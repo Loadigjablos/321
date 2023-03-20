@@ -1,10 +1,10 @@
 const messageField = document.getElementById("MessageField");
 let messageHeight = messageField.clientHeight;
 function messageChange() {
-    messageField.addEventListener("keypress", function() {
-        console.log("Check");
+    messageField.addEventListener("keyup", function() {
+        let windowHeight = document.getElementById("growField").style.height;
         if (messageField.clientHeight > messageHeight) {
-            console.log("Ahuenno");
+            document.getElementById("growField").style.height = (parseFloat(windowHeight) + 1.4 + "rem");;
         }
         messageHeight = messageField.clientHeight;
     })

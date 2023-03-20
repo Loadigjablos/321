@@ -41,10 +41,11 @@ app.get("/", (req, res) => {
   // Allowing top-level await
   (async function () {
   // Initialize the database
-  //await initializeMariaDB();
-  //await initializeDBSchema();
+  await initializeMariaDB();
+  await initializeDBSchema();
   //start the web server
   const serverPort = process.env.PORT || 3000;
+  console.log(serverPort);
   server.listen(serverPort, () => {
     console.log(
       `Express Server started on port ${serverPort} as '${env}' Environment`

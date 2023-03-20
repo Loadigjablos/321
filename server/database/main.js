@@ -7,7 +7,7 @@ const initializeMariaDB = async () => {
     host: "locahost",
     user: "mychat",
     password: "mychatpassword",
-    connectionLimit: 5,
+    connectionLimit: 100,
   });
 };
 
@@ -70,3 +70,5 @@ module.exports = {
     registerNewUser, deleteUserbyName, getOneUserById,
     getOneUserByName, getAllUsers 
 };
+
+
