@@ -537,12 +537,76 @@ video {
   top: 0.25rem;
 }
 
+.top-\[0\.9375rem\] {
+  top: 0.9375rem;
+}
+
+.top-\[-5px\] {
+  top: -5px;
+}
+
+.m-0 {
+  margin: 0px;
+}
+
 .m-auto {
   margin: auto;
 }
 
+.mb-\[0\.5rem\] {
+  margin-bottom: 0.5rem;
+}
+
+.mb-\[1\.5rem\] {
+  margin-bottom: 1.5rem;
+}
+
+.mb-\[2\.5rem\] {
+  margin-bottom: 2.5rem;
+}
+
+.mb-\[3rem\] {
+  margin-bottom: 3rem;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
 .mr-\[0\.625rem\] {
   margin-right: 0.625rem;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.mt-0 {
+  margin-top: 0px;
+}
+
+.mt-\[2\.75rem\] {
+  margin-top: 2.75rem;
+}
+
+.mt-\[2rem\] {
+  margin-top: 2rem;
+}
+
+.mt-\[1rem\] {
+  margin-top: 1rem;
+}
+
+.mb-\[0\.25rem\] {
+  margin-bottom: 0.25rem;
+}
+
+.mt-\[2\.5rem\] {
+  margin-top: 2.5rem;
+}
+
+.mt-\[1\.5rem\] {
+  margin-top: 1.5rem;
 }
 
 .block {
@@ -557,8 +621,24 @@ video {
   height: 100%;
 }
 
+.h-\[10rem\] {
+  height: 10rem;
+}
+
 .h-\[2\.5rem\] {
   height: 2.5rem;
+}
+
+.h-\[2rem\] {
+  height: 2rem;
+}
+
+.h-\[3\.375rem\] {
+  height: 3.375rem;
+}
+
+.h-\[3\.5rem\] {
+  height: 3.5rem;
 }
 
 .h-\[3rem\] {
@@ -569,16 +649,40 @@ video {
   height: auto;
 }
 
+.min-h-\[26\.25rem\] {
+  min-height: 26.25rem;
+}
+
+.min-h-\[20rem\] {
+  min-height: 20rem;
+}
+
+.min-h-\[18rem\] {
+  min-height: 18rem;
+}
+
+.min-h-\[15rem\] {
+  min-height: 15rem;
+}
+
+.min-h-\[12rem\] {
+  min-height: 12rem;
+}
+
 .w-\[100\%\] {
   width: 100%;
+}
+
+.w-\[10rem\] {
+  width: 10rem;
 }
 
 .w-\[2\.5rem\] {
   width: 2.5rem;
 }
 
-.w-\[26rem\] {
-  width: 26rem;
+.w-\[28rem\] {
+  width: 28rem;
 }
 
 .w-\[50\%\] {
@@ -587,6 +691,10 @@ video {
 
 .w-\[calc\(100\%-5rem\)\] {
   width: calc(100% - 5rem);
+}
+
+.max-w-\[25\.5rem\] {
+  max-width: 25.5rem;
 }
 
 .max-w-\[calc\(100\%-3\.25rem\)\] {
@@ -637,6 +745,10 @@ video {
   border-radius: 50%;
 }
 
+.rounded-\[2px\] {
+  border-radius: 2px;
+}
+
 .border-2 {
   border-width: 2px;
 }
@@ -671,17 +783,31 @@ video {
   background-image: url('../materials/backTest.png');
 }
 
-.p-\[0\.5625rem\] {
-  padding: 0.5625rem;
+.bg-\[url\(\'\.\.\/materials\/logoTest\.png\'\)\] {
+  background-image: url('../materials/logoTest.png');
+}
+
+.bg-cover {
+  background-size: cover;
 }
 
 .p-\[0\.8rem\] {
   padding: 0.8rem;
 }
 
+.px-\[0\.25rem\] {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
 .px-\[0\.8125rem\] {
   padding-left: 0.8125rem;
   padding-right: 0.8125rem;
+}
+
+.px-\[1\.5rem\] {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .px-\[1rem\] {
@@ -708,6 +834,10 @@ video {
   padding-bottom: 0.5rem;
 }
 
+.pb-\[1\.5rem\] {
+  padding-bottom: 1.5rem;
+}
+
 .pb-\[1rem\] {
   padding-bottom: 1rem;
 }
@@ -728,6 +858,26 @@ video {
   padding-top: 0.375rem;
 }
 
+.pt-\[6\.8125rem\] {
+  padding-top: 6.8125rem;
+}
+
+.pt-\[2rem\] {
+  padding-top: 2rem;
+}
+
+.pt-\[3rem\] {
+  padding-top: 3rem;
+}
+
+.pt-\[1rem\] {
+  padding-top: 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
 .text-\[0\.875rem\] {
   font-size: 0.875rem;
 }
@@ -740,29 +890,66 @@ video {
   font-size: 1.375rem;
 }
 
-.text-\[100px\] {
-  font-size: 100px;
+.text-\[1rem\] {
+  font-size: 1rem;
 }
 
 .text-\[20px\] {
   font-size: 20px;
 }
 
+.text-\[2rem\] {
+  font-size: 2rem;
+}
+
+.text-\[1\.2rem\] {
+  font-size: 1.2rem;
+}
+
+.text-\[1\.3rem\] {
+  font-size: 1.3rem;
+}
+
+.text-\[1\.4rem\] {
+  font-size: 1.4rem;
+}
+
+.text-\[1\.5rem\] {
+  font-size: 1.5rem;
+}
+
+.text-\[5rem\] {
+  font-size: 5rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
 
-.font-\[100px\] {
-  font-weight: 100px;
+.font-medium {
+  font-weight: 500;
+}
+
+.font-normal {
+  font-weight: 400;
 }
 
 .leading-\[1\.375rem\] {
   line-height: 1.375rem;
 }
 
-.text-\[rgb\(54\2c 0\2c 27\)\] {
+.leading-\[1\.5\] {
+  line-height: 1.5;
+}
+
+.text-\[rgb\(103\2c 36\2c 64\)\] {
   --tw-text-opacity: 1;
-  color: rgb(54 0 27 / var(--tw-text-opacity));
+  color: rgb(103 36 64 / var(--tw-text-opacity));
+}
+
+.text-\[rgb\(112\2c 117\2c 121\)\] {
+  --tw-text-opacity: 1;
+  color: rgb(112 117 121 / var(--tw-text-opacity));
 }
 
 * {
@@ -785,4 +972,8 @@ body {
 #MessageField:empty::before {
   content:attr(data-placeholder);
   color:gray;
+}
+
+.hover\:bg-\[rgba\(103\2c 36\2c 64\2c 0\.4\)\]:hover {
+  background-color: rgba(103,36,64,0.4);
 }
