@@ -1,42 +1,22 @@
-version: '3.8'
+version: '1.9'
 
 services:
-  mariadb:
-    image: mariadb:10.6.4-focal
-    container_name: mariadb
-    command: '--default-authentication-plugin=mysql_native_password'
+  mongo:
+    image: 'mongo:3.4.1'
+    container_name: mongodb
+    restart: always
+    ports:
+      - '27017:27017'
     volumes:
-      - m321_project_mariadb:/var/lib/mysql
-    restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=supersecret123
-      - MYSQL_DATABASE=mychat
-      - MYSQL_USER=mychat
-      - MYSQL_PASSWORD=mychatpassword
-    ports:
-      - 3306:3306
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    depends_on:
-      - mariadb
-      - webserver
-    restart: always
-    environment:
-      - PMA_HOST=mariadb
-      - PMA_PORT=3306
-      - MYSQL_USER=mychat
-      - MYSQL_PASSWORD=mychatpassword
-    ports:
-      - 9200:80
+      - 'm321_mongodb:/data/db'
 
   webserver:
     depends_on:
-      - mariadb
+      - mongo
     container_name: server
-    image: dominicstreit/321:latest
+    image: dominicstreit/321
     ports:
       - 3000:3000
 
 volumes:
-  m321_project_mariadb:
+  m321_mongodb:
