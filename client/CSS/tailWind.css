@@ -537,6 +537,42 @@ video {
   top: 0.25rem;
 }
 
+.top-28 {
+  top: 7rem;
+}
+
+.top-\[50\%\] {
+  top: 50%;
+}
+
+.left-\[50\%\] {
+  left: 50%;
+}
+
+.left-\[40\%\] {
+  left: 40%;
+}
+
+.left-\[30\%\] {
+  left: 30%;
+}
+
+.left-\[25\%\] {
+  left: 25%;
+}
+
+.top-\[40\%\] {
+  top: 40%;
+}
+
+.left-\[32\%\] {
+  left: 32%;
+}
+
+.float-right {
+  float: right;
+}
+
 .m-0 {
   margin: 0px;
 }
@@ -593,6 +629,22 @@ video {
   margin-top: 2.5rem;
 }
 
+.mr-\[2\.5rem\] {
+  margin-right: 2.5rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
 .block {
   display: block;
 }
@@ -625,6 +677,14 @@ video {
   height: auto;
 }
 
+.h-\[7rem\] {
+  height: 7rem;
+}
+
+.h-\[90vh\] {
+  height: 90vh;
+}
+
 .min-h-\[12rem\] {
   min-height: 12rem;
 }
@@ -651,6 +711,18 @@ video {
 
 .w-\[calc\(100\%-5rem\)\] {
   width: calc(100% - 5rem);
+}
+
+.w-\[98\.7vw\] {
+  width: 98.7vw;
+}
+
+.w-\[40\%\] {
+  width: 40%;
+}
+
+.w-\[35\%\] {
+  width: 35%;
 }
 
 .max-w-\[25\.5rem\] {
@@ -739,6 +811,26 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.bg-\[rgb\(232\2c 228\2c 34\)\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(232 228 34 / var(--tw-bg-opacity));
+}
+
+.bg-\[rgb\(244\2c 31\2c 31\)\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(244 31 31 / var(--tw-bg-opacity));
+}
+
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
+.bg-green-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
+}
+
 .bg-\[url\(\'\.\.\/materials\/backTest\.png\'\)\] {
   background-image: url('../materials/backTest.png');
 }
@@ -822,6 +914,10 @@ video {
   text-align: center;
 }
 
+.align-middle {
+  vertical-align: middle;
+}
+
 .text-\[0\.875rem\] {
   font-size: 0.875rem;
 }
@@ -854,6 +950,18 @@ video {
   font-size: 2rem;
 }
 
+.text-\[40px\] {
+  font-size: 40px;
+}
+
+.text-\[4rem\] {
+  font-size: 4rem;
+}
+
+.text-\[3rem\] {
+  font-size: 3rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -882,6 +990,20 @@ video {
 .text-\[rgb\(112\2c 117\2c 121\)\] {
   --tw-text-opacity: 1;
   color: rgb(112 117 121 / var(--tw-text-opacity));
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.opacity-25 {
+  opacity: 0.25;
 }
 
 * {
