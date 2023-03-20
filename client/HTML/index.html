@@ -8,7 +8,7 @@
     <link href='https://fonts.googleapis.com/css?family=B612' rel='stylesheet'>
     <link rel="stylesheet" href="../CSS/tailWind.css"/>
 </head>
-<body class="h-[100%] w-[100%]">
+<body class="h-[100%] w-[100%]" onload="customAlert(3,'Successfully login')">
     <!-- Main window -->
     <div class="flex flex-row h-[100%]">
         <!-- Left window -->
@@ -16,8 +16,13 @@
             <!-- Left header -->
             <div class="flex pt-[0.375rem] pb-[0.5rem] px-[0.8125rem] items-center relative">
                 <!-- Options button -->
-                <button class="text-[20px] w-[2.5rem] h-[2.5rem] bg-[rgba(0,0,0,0)] text-[rgb(103,36,64)] block cursor-pointer">
+                <button id="subFunktions" class="text-[20px] w-[2.5rem] h-[2.5rem] bg-[rgba(0,0,0,0)] text-[rgb(103,36,64)] block cursor-pointer">
                     ☰
+                    <div class="absolute py-[0.3rem] text-[1rem] border-2 border-r-[10px] bg-white mt-[0.5rem] left-0 right-auto top-[100%] z-10 w-[100%]">
+                        <div class="text-left py-[0.25rem] px-[0.75rem] items-center border-r-[0.3rem] font-medium h-[2rem] ml-[0.3rem] mr-[0.3rem] relative">
+                            Logout
+                        </div>
+                    </div>
                 </button>
                 <!-- Search field -->
                 <div class="border-solid border-2 rounded-[1.375rem] relative max-w-[calc(100%-3.25rem)]">
@@ -27,7 +32,7 @@
             </div>
             <!-- Contacts window -->
             <div class="relative flex-1">
-                <div class="absolute flex flex-col h-[100%] w-[100%]  top-0 left-0">
+                <div id="contactList" class="absolute flex flex-col h-[100%] w-[100%]  top-0 left-0">
                     <div class="w-[100%] p-[0.8rem] flex cursor-pointer">
                         <div class="flex items-center w-[2.5rem] h-[2.5rem] mr-[0.625rem]">
                             <img src="../materials/testAvatar.png" class="w-[100%] h-[100%] rounded-[50%]">
@@ -35,19 +40,6 @@
                         <div class="flex flex-col justify-center">
                             <div class="flex items-center text-[1.125rem] leading-[1.375rem] font-bold">
                                 Bebriks
-                            </div>
-                            <div class="text-[0.875rem] leading-[1.375rem]">
-                                Last message
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-[100%] p-[0.8rem] flex cursor-pointer">
-                        <div class="flex items-center w-[2.5rem] h-[2.5rem] mr-[0.625rem]">
-                            <img src="../materials/testAvatar.png" class="w-[100%] h-[100%] rounded-[50%]">
-                        </div>
-                        <div class="flex flex-col justify-center">
-                            <div class="flex items-center text-[1.125rem] leading-[1.375rem] font-bold">
-                                EL Pablo
                             </div>
                             <div class="text-[0.875rem] leading-[1.375rem]">
                                 Last message
@@ -93,5 +85,8 @@
         </div>
     </div>
     <script src="../JS/messageFieldChange.js"></script>
+    <script src="../JS/alerts.js"></script>
+    <script src="../JS/contactsList.js"></script>
+    <script src="../JS/dropdown.js"></script>
 </body>
 <!-- Test -->
