@@ -46,6 +46,7 @@ app.get("/", (req, res) => {
   await initializeDBSchema();
   //start the web server
   const serverPort = process.env.PORT || 3000;
+  console.log(serverPort);
   server.listen(serverPort, () => {
     console.log(
       `Express Server started on port ${serverPort} as '${env}' Environment`
