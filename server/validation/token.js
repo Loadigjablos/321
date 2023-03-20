@@ -24,3 +24,4 @@ const validateToken = (token, res) => {
 };
 
 module.exports = { createToken, validateToken };
+ 

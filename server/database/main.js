@@ -3,27 +3,29 @@ let pool = null;
 const initializeMariaDB = async () => {
   const mariadb = require("mariadb");
   pool = mariadb.createPool({
-    database: "mychat",
-    host: "locahost",
-    user: "mychat",
-    password: "mychatpassword",
-    connectionLimit: 100,
+  database: process.env.DB_NAME || "mychat",
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "supersecret123",
+  port: 3306,
+  //connectionLimit: 5,
   });
 };
 
 const executeSQL = async (query, variables = null) => {
   let conn;
   try {
-    conn = await pool.getConnection().then(conn => {
-      const res =  conn.query(query, variables);
-      conn.end();
-      return res;
-    }).then((res) => {
-      console.log(res);
-    })
+    conn = await pool.getConnection();
+    const res = await conn.query(query, variables);
+    conn.end();
+    return res;
   } catch (err) {
+    try {
+      conn.end();
+    } catch (e) {}
     console.log(err);
   }
+  return false;
 };
 
 const initializeDBSchema = async () => {
