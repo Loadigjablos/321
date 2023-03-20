@@ -36,22 +36,6 @@ const createPrivateChat = (req, res) => {
  * @param req
  * @param res
  */
-const privateChatsImAppartOf = (req, res) => {
-    const user = validateToken(req.cookies.token, res).name;
-
-    //get all chats
-    //filter all im appart of
-  
-    res.status(201).json({
-      message: "Deleted a user",
-    });
-};
-
-/**
- *
- * @param req
- * @param res
- */
 const reciveAllMessagesPrivate = (req, res) => {
     const user = validateToken(req.cookies.token, res).name;
 
@@ -92,4 +76,7 @@ const reciveAllMessagesPublic = (req, res) => {
     });
 };
 
-module.exports = {  };
+module.exports = { 
+  sendMessagePrivate, createPrivateChat, reciveAllMessagesPrivate,
+  sendMessagePublic, reciveAllMessagesPublic
+ };

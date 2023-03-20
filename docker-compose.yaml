@@ -19,16 +19,20 @@ services:
     image: phpmyadmin/phpmyadmin
     depends_on:
       - mariadb
+      - webserver
     restart: always
     environment:
       - PMA_HOST=mariadb
       - PMA_PORT=3306
-      - MYSQL_ROOT_PASSWORD=supersecret123
+      - MYSQL_USER=mychat
+      - MYSQL_PASSWORD=mychatpassword
     ports:
       - 9200:80
 
   webserver:
-    image: dominicstreit/321
+    depends_on:
+      - mariadb
+    image: dominicstreit/321:latest
     ports:
       - 3000
 

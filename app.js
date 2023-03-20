@@ -41,8 +41,8 @@ app.get("/", (req, res) => {
   // Allowing top-level await
   (async function () {
   // Initialize the database
-  //await initializeMariaDB();
-  //await initializeDBSchema();
+  await initializeMariaDB();
+  await initializeDBSchema();
   //start the web server
   const serverPort = process.env.PORT || 3000;
   server.listen(serverPort, () => {
