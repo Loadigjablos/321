@@ -3,6 +3,7 @@ version: '3.8'
 services:
   mariadb:
     image: mariadb:10.6.4-focal
+    container_name: mariadb
     command: '--default-authentication-plugin=mysql_native_password'
     volumes:
       - m321_project_mariadb:/var/lib/mysql
@@ -32,9 +33,10 @@ services:
   webserver:
     depends_on:
       - mariadb
+    container_name: server
     image: dominicstreit/321:latest
     ports:
-      - 3000
+      - 3000:3000
 
 volumes:
   m321_project_mariadb:
