@@ -58,18 +58,18 @@
                     </div>
                     <!-- Messages sender -->
                     <div class="flex relative items-end justify-center mb-3">
-                        <div class="border-solid relative w-[65%] flex flex-row" id="growField" style="height: 2.25rem;">
-                            <div contenteditable="true" id="MessageField" data-placeholder="Message" class="text-[1.2rem] h-auto min-h-[2rem] w-[100%] pl-[2rem] pr-[2rem] rounded-[0.75rem] border-2 bg-white"></div>
-                            <button class="text-[1.5rem] leading-[1.5rem] bg-[rgb(218,33,110)] text-white ml-[2rem] w-[2.75rem] h-[2.5rem] rounded-[60%] hover:bg-[rgb(190,28,96)]">➤</button>
+                        <div class="border-solid relative w-[65%]" id="growField" style="height: 2.25rem;">
+                            <div contenteditable="true" id="MessageField" data-placeholder="Message" class="h-auto w-[100%] pl-[2rem] pr-[2rem] rounded-[0.75rem] border-2 bg-white"></div>
                         </div>
+                        <button onclick="sendMessage()" class="absolute top-0 right-[7rem] text-[1.5rem] leading-[1.5rem] bg-[rgb(218,33,110)] text-white ml-[2rem] w-[2.75rem] h-[2.5rem] rounded-[60%] hover:bg-[rgb(190,28,96)]">➤</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="../JS/messages.js"></script>
     <script src="../JS/messageFieldChange.js"></script>
     <script src="../JS/alerts.js"></script>
+    <script src="../JS/messages.js"></script>
     <script src="../JS/contactsList.js"></script>
     <script src="../JS/dropdown.js"></script>
     <script src="../JS/LoginLogoutSignin.js"></script>

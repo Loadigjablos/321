@@ -39,8 +39,8 @@ function showHistory(group) {
 
 function sendMessage() {
     const messageField = document.getElementById("MessageField");
-    createMessage();
-    messageField.innerText 
+    createMessage(0, { "message": messageField.innerText});
+    messageField.innerText = "";
 }
 
 function createMessage(senderType, groupMessage) {
