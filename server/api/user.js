@@ -1,4 +1,5 @@
 const { createToken, validateToken } = require("../validation/token");
+let crypto = require('crypto');
 const {
   registerNewUser,
   deleteUserbyName,
@@ -21,7 +22,7 @@ const register = (req, res) => {
     });
     req.on("end", () => {
       const name = JSON.parse(data).name;
-      const password = JSON.parse(data).password;
+      const password = crypto.createHmac("sha256", JSON.parse(data).password);
 
       if (!name) {
         res.status(404).json({
@@ -67,7 +68,7 @@ const login = (req, res) => {
           message: "User was not found",
         });
       }
-      if (!user.password !== JSON.parse(data).password) {
+      if (!user.password !== crypto.createHmac("sha256", JSON.parse(data).password)) {
         res.status(404).json({
           message: "User was not found",
         });

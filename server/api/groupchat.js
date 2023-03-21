@@ -1,4 +1,5 @@
 const { validateToken } = require("../validation/token");
+const { newMessageSendtPublic, newMessageSendtPrivate } = require("../websocketserver.js");
 
 /**
  *
@@ -53,12 +54,32 @@ const reciveAllMessagesPrivate = (req, res) => {
  */
 const sendMessagePublic = (req, res) => {
     const user = validateToken(req.cookies.token, res).name;
-
-    // add message to db
+    try {
+      let data = [];
+      req.on("data", (chunk) => {
+        data.push(chunk);
+      });
+      req.on("end", () => {
+        const message = JSON.parse(data).message;
   
-    res.status(201).json({
-      message: "Deleted a user",
-    });
+        if (!message) {
+          res.status(400).json({
+            message: "No message sendt",
+          });
+        }
+
+        newMessageSendtPublic(user, message);
+  
+        res.status(200).json({
+          message: "sendt successful",
+        });
+      });
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({
+        message: "sending Failed",
+      });
+    }
 };
 
 /**
