@@ -51,4 +51,14 @@ function createContact(group) {
     contact.appendChild(contactInformation);
     contactList.appendChild(contact);
 }
+
+function showList() {
+    const dropList = document.getElementById("dropList");
+    if (dropList.style.display == "none") {
+        dropList.style.display = "block";
+    } else {
+        dropList.style.display = "none";
+    }
+}
+
 contactList(testGroup);
