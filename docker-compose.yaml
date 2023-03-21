@@ -14,7 +14,7 @@ services:
     depends_on:
       - mongo
     container_name: server
-    image: dominicstreit/321
+    image: dominicstreit/321:latest
     ports:
       - 3000:3000
 
