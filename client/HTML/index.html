@@ -51,27 +51,25 @@
             <div id="groupHeader" class="flex items-center w-[100%] bg-white relative px-[2.5rem] py-[0.5rem] border-b-2 border-black"></div>
             <!-- Chat window -->
             <div class="relative flex-1">
-                <div class="w-[100%] h-[100%] absolute top-0 left-0 flex flex-col bg-[url('../materials/backTest.png')] bg-contain">
+                <div class="w-[100%] h-[100%] absolute top-0 left-0 flex flex-col bg-[url('../materials/backTest.png')] bg-contain overflow-y-auto">
                     <!-- Chat messages -->
-                    <div id="chatWindow" class="w-[70%] h-auto mt-auto ml-auto mr-auto flex flex-col justify-end px-[1rem] py-[1rem]">
-                        
-                    </div>
+                    <div id="chatWindow" class="w-[70%] h-auto mt-auto ml-auto mr-auto flex flex-col justify-end px-[1rem] py-[1rem]"></div>
                     <!-- Messages sender -->
                     <div class="flex relative items-end justify-center mb-3">
                         <div class="border-solid relative w-[65%]" id="growField" style="height: 2.25rem;">
                             <div contenteditable="true" id="MessageField" data-placeholder="Message" class="h-auto w-[100%] pl-[2rem] pr-[2rem] rounded-[0.75rem] border-2 bg-white"></div>
                         </div>
-                        <button onclick="sendMessage()" class="absolute top-0 right-[7rem] text-[1.5rem] leading-[1.5rem] bg-[rgb(218,33,110)] text-white ml-[2rem] w-[2.75rem] h-[2.5rem] rounded-[60%] hover:bg-[rgb(190,28,96)]">➤</button>
+                        <button onclick="sendMessage()" class="absolute top-0 right-[6rem] text-[1.5rem] leading-[1.5rem] bg-[rgb(218,33,110)] text-white ml-[2rem] w-[2.75rem] h-[2.5rem] rounded-[60%] hover:bg-[rgb(190,28,96)]">➤</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="../JS/messageFieldChange.js"></script>
     <script src="../JS/alerts.js"></script>
     <script src="../JS/messages.js"></script>
     <script src="../JS/contactsList.js"></script>
     <script src="../JS/dropdown.js"></script>
     <script src="../JS/LoginLogoutSignin.js"></script>
+    <script src="../JS/messageFieldChange.js"></script>
 </body>
 <!-- Test -->

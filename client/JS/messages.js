@@ -41,6 +41,7 @@ function sendMessage() {
     const messageField = document.getElementById("MessageField");
     createMessage(0, { "message": messageField.innerText});
     messageField.innerText = "";
+    messageField.scrollIntoView();
 }
 
 function createMessage(senderType, groupMessage) {

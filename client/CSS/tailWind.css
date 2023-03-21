@@ -585,8 +585,20 @@ video {
   right: 7rem;
 }
 
+.right-\[6rem\] {
+  right: 6rem;
+}
+
+.bottom-0 {
+  bottom: 0px;
+}
+
 .z-10 {
   z-index: 10;
+}
+
+.z-\[100\] {
+  z-index: 100;
 }
 
 .m-0 {
@@ -741,6 +753,10 @@ video {
   height: 2.75rem;
 }
 
+.h-\[1000px\] {
+  height: 1000px;
+}
+
 .min-h-\[12rem\] {
   min-height: 12rem;
 }
@@ -843,6 +859,18 @@ video {
 
 .justify-center {
   justify-content: center;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-scroll {
+  overflow: scroll;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
 }
 
 .truncate {
