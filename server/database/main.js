@@ -3,11 +3,10 @@
  * @param mogofunc this is a function that will get executed using the mongo client as a parameter
  * source: https://www.mongodb.com/developer/languages/javascript/node-connect-mongodb/
  */
-
 const executemongoDBFunction = async (mogoFunc) => {
   let result;
   const { MongoClient } = require("mongodb");
-  const URI = "mongodb://127.0.0.1:27017/mychat";
+  const URI = "mongodb+srv://user:pass@127.0.0.1/mychat";
   const CLIENT = new MongoClient(URI);
   try {
     await CLIENT.connect();
