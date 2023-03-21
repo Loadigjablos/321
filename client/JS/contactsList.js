@@ -3,6 +3,20 @@ const testGroup = [
         "name": "BusidoChat",
         "members": [
             "Levan", "Mat", "Streit"
+        ],
+        "messages": [
+            {
+                "username": "Mat",
+                "message": "Jojo"
+            },
+            {
+                "username": "Mat",
+                "message": "Kambodjo"
+            },
+            {
+                "username": "Brat",
+                "message": "Tadjikistan one love"
+            },
         ]
     },
     {
@@ -21,6 +35,7 @@ function contactList(allGroups) {
             }
         }
     }
+    contactList.firstChild.click();
 }
 function createContact(group) {
     //Create DOM elements
@@ -50,6 +65,10 @@ function createContact(group) {
     contactInformation.appendChild(contactMembers);
     contact.appendChild(contactInformation);
     contactList.appendChild(contact);
+    //Add function
+    contact.addEventListener("click", function() {
+        showGroup(group);
+    });
 }
 
 function showList() {
