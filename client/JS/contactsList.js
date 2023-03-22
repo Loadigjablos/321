@@ -23,6 +23,20 @@ const testGroup = [
         "name": "Developers",
         "members": [
             "Kor", "Mat", "Mor"
+        ],
+        "messages": [
+            {
+                "username": "Abobus",
+                "message": "Amogus"
+            },
+            {
+                "username": "Mat",
+                "message": "Reyniaaaaa"
+            },
+            {
+                "username": "Levan",
+                "message": "DAVIIIIIIIII GAVNOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+            },
         ]
     }
 ]
