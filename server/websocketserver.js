@@ -9,37 +9,47 @@ const initializeWebsocketServer = (server) => {
   const websocketServer = new WebSocket.Server({ server });
   websocketServer.on("connection", onConnection);
 };
-
-// If a new connection is established it will get added to the global connections and now its posible to send every one connected to the websocket messages
-//source: https://stackoverflow.com/questions/6623113/is-it-possible-to-send-a-message-to-all-active-websocket-connections-using-eith
+/* If a new connection is established it will get added to the global connections and now its posible to send every one connected to the websocket messages
+ * source: https://stackoverflow.com/questions/6623113/is-it-possible-to-send-a-message-to-all-active-websocket-connections-using-eith
+ */
 const onConnection = (ws) => {
-  console.log("New websocket connection");
-  var id = global_counter++;
+
+  let id = global_counter++;
+
+  console.log("[" + id + "] New websocket connection");
+
   all_active_connections[id] = ws;
   ws.id = id;
+
   ws.on("message", (message) => {
-    console.log("WS ON " + message);
-    for (conn in all_active_connections) {
-      all_active_connections[conn].send(message);
+
+    const data = JSON.parse(message);
+
+    if (data.chatname !== undefined && data.chatname == "BusidoChat") {
+      for (conn in all_active_connections) {
+        all_active_connections[conn].send(`{
+          "chatname": "BusidoChat",
+          "name": "${data.name}",
+          "message": "${data.message}",
+          "time": "${data.time}"
+        }`);
+      }
+    } else {
+
+      for (conn in all_active_connections) {
+        all_active_connections[conn].send(`{
+          "chatname": "${data.chatname}",
+          "name": "${data.name}",
+          "message": "${data.message}",
+          "time": "${data.time}"
+        }`);
+      }
+
     }
+
   }).on('close', function() {
     delete all_active_connections[ws.id];
   });
 };
 
-const newMessageSendtPublic = (username, message) => {
-  console.log("TEST");
-  for (conn in all_active_connections) {
-    all_active_connections[conn].send(`{
-      "chatname": "public",
-      "name": "${username}",
-      "message": "${message}"
-    }`);
-  }
-}
-
-const newMessageSendtPrivate = (username, message, chat) => {
-
-}
-
-module.exports = { initializeWebsocketServer, newMessageSendtPublic, newMessageSendtPrivate };
+module.exports = { initializeWebsocketServer };
