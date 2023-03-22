@@ -43,7 +43,7 @@ app.get("/", (req, res) => {
   // Allowing top-level await
   (async function () {
   // Initialize the database
-  await initializeDBSchema();
+  //await initializeDBSchema();
   //start the web server
   const serverPort = process.env.PORT || 3000;
   console.log(serverPort);

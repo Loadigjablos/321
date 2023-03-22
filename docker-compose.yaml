@@ -2,14 +2,14 @@ version: '1.9'
 
 services:
   mongo:
-    image: 'mongo:3.4.1'
+    image: mongo:latest
     container_name: mongodb
     restart: always
     ports:
       - 27017:27017
     environment:
-      - MONGO_INITDB_USERNAME=user
-      - MONGO_INITDB_PASSWORD=pass
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=pass
       - MONGO_INITDB_DATABASE=mychat
     volumes:
       - 'm321_mongodb:/data/db'
