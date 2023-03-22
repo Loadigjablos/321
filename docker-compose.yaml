@@ -6,12 +6,14 @@ services:
     container_name: mongodb
     restart: always
     ports:
-      - '27017:27017'
+      - 27017:27017
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=user
-      - MONGO_INITDB_ROOT_PASSWORD=pass
+      - MONGO_INITDB_USERNAME=user
+      - MONGO_INITDB_PASSWORD=pass
+      - MONGO_INITDB_DATABASE=mychat
     volumes:
       - 'm321_mongodb:/data/db'
+      - ./mongo-init:/docker-entrypoint-initdb.d
 
   webserver:
     depends_on:

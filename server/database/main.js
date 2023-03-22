@@ -6,7 +6,7 @@
 const executemongoDBFunction = async (mogoFunc) => {
   let result;
   const { MongoClient } = require("mongodb");
-  const URI = "mongodb+srv://user:pass@127.0.0.1/mychat";
+  const URI = "mongodb+srv://user:pass@localhost/mychat/?retryWrites=true&w=majority";
   const CLIENT = new MongoClient(URI);
   try {
     await CLIENT.connect();
