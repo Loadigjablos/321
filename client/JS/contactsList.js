@@ -88,11 +88,11 @@ function createContact(group) {
 
 function showList() {
     const dropList = document.getElementById("dropList");
-    if (dropList.style.display == "none") {
-        dropList.style.display = "block";
-    } else {
-        dropList.style.display = "none";
-    }
+    dropList.style.display = "block";
+}
+function hideList() {
+    const dropList = document.getElementById("dropList");
+    dropList.style.display = "none";
 }
 
 contactList(testGroup);

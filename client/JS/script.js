@@ -29,3 +29,10 @@ socket.addEventListener("close", (event) => {
 socket.addEventListener("error", (event) => {
   console.error("WebSocket error:", event);
 });
+
+document.body.onload = function() {
+  if (actualUser == "") {
+    document.location.href = "gate.html";
+  }
+  customAlert(3,'Successfully login');
+}
