@@ -817,6 +817,18 @@ video {
   overflow-y: auto;
 }
 
+.whitespace-normal {
+  white-space: normal;
+}
+
+.whitespace-pre {
+  white-space: pre;
+}
+
+.break-words {
+  overflow-wrap: break-word;
+}
+
 .rounded-\[0\.75rem\] {
   border-radius: 0.75rem;
 }

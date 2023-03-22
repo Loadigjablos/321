@@ -41,7 +41,7 @@ function showHistory(group) {
 
 function sendMessage() {
     const messageField = document.getElementById("MessageField");
-    socket.send(actualUser + ";" + messageField.innerText);
+    socket.send(actualUser + ";" + messageField.innerText + ";" + actualChat);
     messageField.innerText = "";
     messageField.scrollIntoView();
 }
@@ -58,7 +58,7 @@ function createMessage(senderType, groupMessage) {
     const messageWindowStyle = "mb-[0.4rem] pb-[1rem] pr-[0.5rem] flex relative flex-col max-w-[90%] min-w-[15%] rounded-[1rem] shadow-lg";
     const messageStyle = "text-[1.2rem]";
     sender.className = messageStyle + " font-semibold";
-    message.className = messageStyle + " font-medium";
+    message.className = messageStyle + " font-medium break-words";
     sendtime.className = "absolute bottom-0 right-2 text-[0.7rem] font-normal";
     if (senderType == 0) {
         messageWindow.className = messageWindowStyle + " text-white bg-[rgb(218,33,110)] ml-auto mr-0 pr-[5px] pl-[5px] shadow-[rgb(218,33,110)]";
@@ -74,7 +74,7 @@ function createMessage(senderType, groupMessage) {
         sender.innerText = groupMessage.username;
     }
     //Text for elements
-    const correctedMessage = groupMessage.message.replace(/(\r\n|\n|\r)/gm, "");
+    let correctedMessage = groupMessage.message.replace(/(\r\n|\n|\r)/gm, "");
     message.innerText = correctedMessage;
     sendtime.innerText = String(new Date((parseInt(new Date().toJSON().slice(11, 13)) * 3600 + parseInt(new Date().toJSON().slice(14, 16)) * 60 + 3600) * 1000).toJSON().slice(11, 16));
     //Connect all elements 
@@ -85,8 +85,9 @@ function createMessage(senderType, groupMessage) {
     messageWindow.appendChild(message);
     messageWindow.appendChild(sendtime);
     chatWindow.appendChild(messageWindow);
-    //Back to normal size
+    //Back to normality
     document.getElementById("growField").style.height = 2.25 + "rem";
+    document.getElementById("sendButton").style.display = "none";
 }
 
 function sendController() {

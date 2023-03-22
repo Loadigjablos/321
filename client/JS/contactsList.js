@@ -81,6 +81,7 @@ function createContact(group) {
     contactList.appendChild(contact);
     //Add function
     contact.addEventListener("click", function() {
+        actualChat = group.name;
         showGroup(group);
     });
 }
