@@ -18,6 +18,7 @@ const onConnection = (ws) => {
   all_active_connections[id] = ws;
   ws.id = id;
   ws.on("message", (message) => {
+    console.log("WS ON " + message);
     for (conn in all_active_connections) {
       all_active_connections[conn].send(message);
     }
@@ -27,6 +28,7 @@ const onConnection = (ws) => {
 };
 
 const newMessageSendtPublic = (username, message) => {
+  console.log("TEST");
   for (conn in all_active_connections) {
     all_active_connections[conn].send(`{
       "chatname": "public",

@@ -29,7 +29,7 @@ function showGroup(group) {
 
 function showHistory(group) {
     for (let i = 0; i < group.messages.length; i++) {
-        if (group.messages[i].username == ('; '+document.cookie).split(`; username=`).pop().split(';')[0]) {
+        if (group.messages[i].username == actualUser) {
             createMessage(0, group.messages[i]);
         } else {
             createMessage(1, group.messages[i]);
@@ -39,7 +39,7 @@ function showHistory(group) {
 
 function sendMessage() {
     const messageField = document.getElementById("MessageField");
-    createMessage(0, { "message": messageField.innerText});
+    socket.send(actualUser + ";" + messageField.innerText);
     messageField.innerText = "";
     messageField.scrollIntoView();
 }
@@ -73,7 +73,7 @@ function createMessage(senderType, groupMessage) {
     }
     //Text for elements
     message.innerText = groupMessage.message;
-    sendtime.innerText = date.getHours() + ":" + date.getMinutes();
+    sendtime.innerText = String(new Date((parseInt(new Date().toJSON().slice(11, 13)) * 3600 + parseInt(new Date().toJSON().slice(14, 16)) * 60 + 3600) * 1000).toJSON().slice(11, 16));
     //Connect all elements 
     messageWindow.appendChild(sender);
     messageWindow.appendChild(message);

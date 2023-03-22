@@ -30,7 +30,7 @@ function contactList(allGroups) {
     const contactList = document.getElementById("contactList");
     for (let i = 0; i < allGroups.length; i++) {
         for (let j = 0; j < allGroups[i].members.length; j++) {
-            if (allGroups[i].members[j].includes(('; '+document.cookie).split(`; username=`).pop().split(';')[0])) {
+            if (allGroups[i].members[j].includes(actualUser)) {
                 createContact(allGroups[i]);
             }
         }
