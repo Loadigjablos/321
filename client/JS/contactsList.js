@@ -23,6 +23,20 @@ const testGroup = [
         "name": "Developers",
         "members": [
             "Kor", "Mat", "Mor"
+        ],
+        "messages": [
+            {
+                "username": "Abobus",
+                "message": "Amogus"
+            },
+            {
+                "username": "Mat",
+                "message": "Reyniaaaaa"
+            },
+            {
+                "username": "Levan",
+                "message": "DAVIIIIIIIII GAVNOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+            },
         ]
     }
 ]
@@ -30,7 +44,7 @@ function contactList(allGroups) {
     const contactList = document.getElementById("contactList");
     for (let i = 0; i < allGroups.length; i++) {
         for (let j = 0; j < allGroups[i].members.length; j++) {
-            if (allGroups[i].members[j].includes(('; '+document.cookie).split(`; username=`).pop().split(';')[0])) {
+            if (allGroups[i].members[j].includes(actualUser)) {
                 createContact(allGroups[i]);
             }
         }
@@ -67,6 +81,7 @@ function createContact(group) {
     contactList.appendChild(contact);
     //Add function
     contact.addEventListener("click", function() {
+        actualChat = group.name;
         showGroup(group);
     });
 }
