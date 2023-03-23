@@ -4,6 +4,7 @@ function createGroup() {
     const chooseType = document.createElement("div");
     const groupChat = document.createElement("button");
     const privateChat = document.createElement("button");
+    const closeWindow = document.createElement("button");
     const groupDiv = document.createElement("div");
     const groupNameInput = document.createElement("input");
     const groupLabel = document.createElement("label");
@@ -16,6 +17,7 @@ function createGroup() {
     privateChat.innerText = "Private chat";
     createChat.innerText = "Create"
     groupLabel.innerText = "Group name";
+    closeWindow.innerText = "X";
     //Placeholders
     groupNameInput.placeholder = "Enter group name";
     //Design for close alert and shading div
@@ -33,12 +35,17 @@ function createGroup() {
     userInput.className = inputStyle;
     groupLabel.className = labelStyle;
     userLabel.className = labelStyle;
-    createChat.className = chatStyle
+    createChat.className = chatStyle;
+    closeWindow.className = "absolute right-2 top-0 text-[2rem] text-red-600 hover:bg-gray-300";
     //Connect header
     chooseType.appendChild(groupChat);
     chooseType.appendChild(privateChat);
+    window.appendChild(closeWindow);
     window.appendChild(chooseType);
     //Events
+    closeWindow.addEventListener("click", function() {
+        window.remove();
+    });
     groupChat.addEventListener("click", function() {
         userLabel.innerText = "Username/-s";
         userInput.placeholder = "Enter username/-s with whitespace";

@@ -19,6 +19,12 @@
                 <button onmouseover="showList()" id="subFunktions" class="text-[20px] w-[2.5rem] h-[2.5rem] bg-[rgba(0,0,0,0)] text-[rgb(218,33,110)] block cursor-pointer hover:bg-gray-300 hover:rounded-[50%] focus:bg-gray-300 focus:rounded-[50%]">
                     ☰
                     <div id="dropList" class="absolute py-[0.3rem] text-[1.25rem] border-2 border-r-[10px] bg-white mt-[0.5rem] left-0 right-auto top-[100%] z-10 w-[100%] hidden">
+                        <div class="text-[1.25rem] mb-[0.5rem] left-0 right-auto top-0 border-b-2 cursor-default">
+                            You are logged as <strong id="yourName"></strong>
+                        </div>
+                        <div onclick="connectToGroup()" class="dropDownElement">
+                            Connect to group
+                        </div>
                         <div onclick="createGroup()" class="dropDownElement">
                             Create group
                         </div>
@@ -73,5 +79,6 @@
     <script src="../JS/LoginLogoutSignin.js"></script>
     <script src="../JS/messageFieldChange.js"></script>
     <script src="../JS/createGroup.js"></script>
+    <script src="../JS/connectToGroup.js"></script>
 </body>
 <!-- Test -->
