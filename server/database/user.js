@@ -1,38 +1,27 @@
-const { executemongoDBFunction } = require("./main");
+const { executeSQL } = require("./main");
 
 const registerNewUser = async (name, password) => {
-    executemongoDBFunction((client) => {
+    const query = `INSERT INTO users (id, name, password) VALUES (NULL, '${name}', '${password}');`;
 
-        client.db.getCollection("users").insertMany( 
-            [
-                {
-                  name: 'hello',
-                  password: 'hello'
-                }
-            ]
-        )
-
-    });
+    return await executeSQL(query);
 }
 
 const deleteUserbyName = async (name) => {
-    executemongoDBFunction((client) => {
+    const query = `DELETE FROM users WHERE name = '${name}'`;
 
-    });
+    return await executeSQL(query);
 }
 
 const getOneUserByName = async (name) => {
-    executemongoDBFunction((client) => {
-        client.db.getCollection("users").find({
-            name: name
-        })
-    });
+    const query = `SELECT * FROM users WHERE name = '${name}'`;
+
+    return await executeSQL(query);
 }
 
 const getAllUsers = async () => {
-    executemongoDBFunction((client) => {
-        client.db.getCollection("users").find({});
-    });
+    const query = `SELECT name FROM users`;
+
+    return await executeSQL(query);
 }
 
 module.exports = {

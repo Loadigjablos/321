@@ -1,11 +1,11 @@
 const { createToken, validateToken } = require("../validation/token");
-let crypto = require('crypto');
+let crypto = require("crypto");
 const {
   registerNewUser,
   deleteUserbyName,
   getOneUserByName,
   getAllUsers,
-} = require("../database/main");
+} = require("../database/user");
 
 //source: https://flaviocopes.com/node-request-data/
 
@@ -22,23 +22,26 @@ const register = (req, res) => {
     });
     req.on("end", () => {
       const name = JSON.parse(data).name;
-      const password = crypto.createHmac("sha256", JSON.parse(data).password);
+      const sha256Hasher = crypto.createHmac("SHA-256", "secret");
+      const password = sha256Hasher
+        .update(JSON.parse(data).password)
+        .digest("hex");
 
-      if (!name) {
+      if (!name && name.lenght < 3) {
         res.status(404).json({
-          message: "User was not found",
+          message: "name is invalid",
         });
       }
-      if (!password && password.lenght > 9) {
+      if (!password && password.lenght < 9) {
         res.status(404).json({
-          message: "User was not found",
+          message: "Password is invalid",
         });
       }
 
       registerNewUser(name, password);
 
       res.status(200).json({
-        message: "Login successful",
+        message: "user succesfuly registerd",
       });
     });
   } catch (e) {
@@ -61,26 +64,34 @@ const login = (req, res) => {
       data.push(chunk);
     });
     req.on("end", () => {
-      const user = getOneUserByName(JSON.parse(data).name);
+      const name = JSON.parse(data).name;
+      const sha256Hasher = crypto.createHmac("SHA-256", "secret");
+      const password = sha256Hasher
+        .update(JSON.parse(data).password)
+        .digest("hex");
 
-      if (!user.name) {
-        res.status(404).json({
-          message: "User was not found",
+      getOneUserByName(name).then((user) => {
+        const currentUser = user[0];
+
+        if (!currentUser.name) {
+          res.status(404).json({
+            message: "User was not found",
+          });
+        }
+        if (currentUser.password !== password) {
+          res.status(404).json({
+            message: "User was not found",
+          });
+        }
+
+        res.cookie("token", createToken(currentUser.name), {
+          httpOnly: true,
+          maxAge: 6000000, // 6h
         });
-      }
-      if (!user.password !== crypto.createHmac("sha256", JSON.parse(data).password)) {
-        res.status(404).json({
-          message: "User was not found",
+
+        res.status(201).json({
+          message: "Login successful",
         });
-      }
-
-      res.cookie("token", createToken(user.name), {
-        httpOnly: true,
-        maxAge: 600000, // 6h
-      });
-
-      res.status(201).json({
-        message: "Login successful",
       });
     });
   } catch (e) {
@@ -92,7 +103,7 @@ const login = (req, res) => {
 };
 
 /**
- * 
+ *
  * @param req
  * @param res
  */
@@ -117,13 +128,13 @@ const deleteMyself = (req, res) => {
 const getAllUsersInterface = (req, res) => {
   validateToken(req.cookies.token, res);
 
-  const users = getAllUsers();
-
-  if (users != false) {
-    res.status(200).json(users);
-  }
-  res.status(404).json({
-    message: "No Users found",
+  getAllUsers().then((users) => {
+    if (users != false) {
+      res.status(200).json(users);
+    }
+    res.status(404).json({
+      message: "No Users found",
+    });
   });
 };
 
