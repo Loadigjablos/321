@@ -51,7 +51,7 @@ function contactList(allGroups) {
     }
     contactList.firstChild.click();
 }
-function createContact(group) {
+function createContact(group, contactType = 0) {
     //Create DOM elements
     const contactList = document.getElementById("contactList");
     const contact = document.createElement("div");
@@ -69,7 +69,11 @@ function createContact(group) {
     contactMembers.className = "text-[0.875rem] leading-[1.375rem]";
     //Text for elements
     contactName.innerText = group.name;
-    contactMembers.innerText = group.members.length + " members";
+    if (contactType === 0) {
+        contactMembers.innerText = group.members.length + " members";
+    } else {
+        contactMembers.innerText = "Private contact";
+    }
     //Image
     avatarImage.src = "../materials/logoTest.png";
     //Connect all elements
@@ -82,17 +86,19 @@ function createContact(group) {
     //Add function
     contact.addEventListener("click", function() {
         actualChat = group.name;
-        showGroup(group);
+        showGroup(group, contactType);
     });
 }
 
 function showList() {
     const dropList = document.getElementById("dropList");
-    if (dropList.style.display == "none") {
-        dropList.style.display = "block";
-    } else {
-        dropList.style.display = "none";
-    }
+    dropList.style.display = "block";
+}
+function hideList() {
+    const dropList = document.getElementById("dropList");
+    const searchField = document.getElementById("searchField");
+    dropList.style.display = "none";
+    searchField.style.display = "none";
 }
 
 contactList(testGroup);

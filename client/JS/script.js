@@ -11,11 +11,39 @@ socket.addEventListener("message", (event) => {
   reader.onload = function() {
     console.log(`Received message: ${reader.result}`);
     const messageParts = reader.result.split(';');
-    if (actualChat == messageParts[2]) {
-      if (actualUser != messageParts[0]) {
-        createMessage(1, {"username": messageParts[0], "message": messageParts[1]});
+    if (messageParts[0] == "Message") {
+      if (actualChat == messageParts[3] || actualChat == messageParts[1]) {
+        if (actualUser != messageParts[1]) {
+          createMessage(1, {"username": messageParts[1], "message": messageParts[2]});
+        } else {
+          createMessage(0, {"username": messageParts[1], "message": messageParts[2]});
+        }
+      }
+    } else if (messageParts[0] == "New contact") {
+      if (messageParts[2].includes(actualUser)) {
+        const groupData = {
+          "name": messageParts[1],
+          "members": messageParts[2].split(','),
+          "messages": []
+        }
+        createContact(groupData);
       } else {
-        createMessage(0, {"username": messageParts[0], "message": messageParts[1]});
+        
+      }
+    } else if (messageParts[0] == "New private contact") {
+      if (messageParts[1].includes(actualUser)) {
+        const contact = messageParts[1].split(',');
+        let contactName = "";
+        if (actualUser != contact[0]) {
+          contactName = contact[0];
+        } else {
+          contactName = contact[1];
+        }
+        const groupData = {
+          "name": contactName,
+          "messages": []
+        }
+        createContact(groupData, 1);
       }
     }
   }
@@ -29,3 +57,10 @@ socket.addEventListener("close", (event) => {
 socket.addEventListener("error", (event) => {
   console.error("WebSocket error:", event);
 });
+
+document.body.onload = function() {
+  if (actualUser == "") {
+    document.location.href = "gate.html";
+  }
+  customAlert(3,'Successfully login');
+}

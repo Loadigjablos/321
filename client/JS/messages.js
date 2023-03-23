@@ -1,4 +1,4 @@
-function showGroup(group) {
+function showGroup(group, contactType = 0) {
     //Create DOM elements
     const header = document.getElementById("groupHeader");
     const chatWindow = document.getElementById("chatWindow");
@@ -17,7 +17,11 @@ function showGroup(group) {
     groupMembers.className = "text-[0.875rem] leading-[1.375rem]";
     //Text for elements
     groupName.innerText = group.name;
-    groupMembers.innerText = group.members.length + " members";
+    if (contactType === 0) {
+        groupMembers.innerText = group.members.length + " members";
+    } else {
+        groupMembers.innerText = "Private contact";
+    }
     //Image
     avatarImage.src = "../materials/logoTest.png";
     //Connect all elements
@@ -41,13 +45,12 @@ function showHistory(group) {
 
 function sendMessage() {
     const messageField = document.getElementById("MessageField");
-    socket.send(actualUser + ";" + messageField.innerText + ";" + actualChat);
+    socket.send("Message;" + actualUser + ";" + messageField.innerText + ";" + actualChat);
     messageField.innerText = "";
     messageField.scrollIntoView();
 }
 
 function createMessage(senderType, groupMessage) {
-    let date = new Date();
     //Create DOM elements
     const chatWindow = document.getElementById("chatWindow");
     const messageWindow = document.createElement("div");

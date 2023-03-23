@@ -8,18 +8,18 @@
     <link href='https://fonts.googleapis.com/css?family=B612' rel='stylesheet'>
     <link rel="stylesheet" href="../CSS/tailWind.css"/>
 </head>
-<body class="h-[100%] w-[100%]" onload="customAlert(3,'Successfully login')">
+<body class="h-[100%] w-[100%]">
     <!-- Main window -->
     <div class="flex flex-row h-[100%]">
         <!-- Left window -->
-        <div class="flex flex-col h-[100%] w-[28rem] bg-white border-r-2 border-black">
+        <div class="flex flex-col h-[100%] w-[28rem] bg-white border-r-2 border-black" onmouseleave="hideList()">
             <!-- Left header -->
             <div class="flex pt-[0.375rem] pb-[0.5rem] px-[0.8125rem] items-center relative">
                 <!-- Options button -->
-                <button onclick="showList()" id="subFunktions" class="text-[20px] w-[2.5rem] h-[2.5rem] bg-[rgba(0,0,0,0)] text-[rgb(218,33,110)] block cursor-pointer hover:bg-gray-300 hover:rounded-[50%] focus:bg-gray-300 focus:rounded-[50%]">
+                <button onmouseover="showList()" id="subFunktions" class="text-[20px] w-[2.5rem] h-[2.5rem] bg-[rgba(0,0,0,0)] text-[rgb(218,33,110)] block cursor-pointer hover:bg-gray-300 hover:rounded-[50%] focus:bg-gray-300 focus:rounded-[50%]">
                     ☰
                     <div id="dropList" class="absolute py-[0.3rem] text-[1.25rem] border-2 border-r-[10px] bg-white mt-[0.5rem] left-0 right-auto top-[100%] z-10 w-[100%] hidden">
-                        <div class="dropDownElement">
+                        <div onclick="createGroup()" class="dropDownElement">
                             Create group
                         </div>
                         <div onclick="logout()" class="dropDownElement" id="Logout">
@@ -33,17 +33,16 @@
                 <!-- Search field -->
                 <div class="border-solid border-2 rounded-[1.375rem] relative max-w-[calc(100%-3.25rem)] ml-2">
                     <div class="absolute top-[0.25rem] left-[0.75rem] text-[1.375rem]">🔎︎</div>
-                    <input class="bg-[rgba(0,0,0,0)] h-[2.5rem] w-[100%] pl-[2.75rem]" placeholder="Search"> 
+                    <input id="searchInput" onclick="searchAllContact()" onchange="searchAllContact()" class="bg-[rgba(0,0,0,0)] h-[2.5rem] w-[100%] pl-[2.75rem]" placeholder="Search">
+                    <div id="searchField" class="absolute py-[0.3rem] text-[1.25rem] border-2 border-r-[10px] bg-white mt-[0.5rem] left-0 right-auto top-[100%] z-10 w-[100%] hidden">
+
+                    </div>
                 </div>
             </div>
             <!-- Contacts window -->
             <div class="relative flex-1">
                 <div id="contactList" class="absolute flex flex-col h-[100%] w-[100%]  top-0 left-0"></div>
             </div>
-            <!-- Create new chat -->
-            <button>
-
-            </button>
         </div>
         <!-- Right window -->
         <div class="flex flex-col h-[100%] w-[100%]">
@@ -65,12 +64,14 @@
             </div>
         </div>
     </div>
-    <script src="../JS/script.js"></script>
     <script src="../JS/alerts.js"></script>
+    <script src="../JS/script.js"></script>
     <script src="../JS/messages.js"></script>
     <script src="../JS/contactsList.js"></script>
+    <script src="../JS/search.js"></script>
     <script src="../JS/dropdown.js"></script>
     <script src="../JS/LoginLogoutSignin.js"></script>
     <script src="../JS/messageFieldChange.js"></script>
+    <script src="../JS/createGroup.js"></script>
 </body>
 <!-- Test -->
