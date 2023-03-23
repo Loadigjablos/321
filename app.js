@@ -33,7 +33,19 @@ if (env !== "production") {
 app.use(express.static("client"));
 // route for the homepage
 app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/client/HTML/gate.html");
+});
+app.get("/gate.html", (req, res) => {
+  res.sendFile(__dirname + "/client/HTML/gate.html");
+});
+app.get("/index.html", (req, res) => {
   res.sendFile(__dirname + "/client/HTML/index.html");
+});
+app.get("/login.html", (req, res) => {
+  res.sendFile(__dirname + "/client/HTML/login.html");
+});
+app.get("/registration.html", (req, res) => {
+  res.sendFile(__dirname + "/client/HTML/registration.html");
 });
   // Initialize the websocket server
   initializeWebsocketServer(server);
@@ -43,7 +55,7 @@ app.get("/", (req, res) => {
   // Allowing top-level await
   (async function () {
   // Initialize the database
-  //await initializeDBSchema();
+  await initializeDBSchema();
   //start the web server
   const serverPort = process.env.PORT || 3000;
   console.log(serverPort);

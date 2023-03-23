@@ -23,43 +23,13 @@ const executemongoDBFunction = async (mogoFunc) => {
 };
 
 /**
- * source: https://adrianmejia.com/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/
- */
-/*
-const executemongoDBFunction = async (mogoFunc) => {
-  var mongoose = require('mongoose');
-
-  const URI = "mongodb://user:pass@localhost/mychat/?retryWrites=true&w=majority";
-  let MongoDB = await mongoose.connect(URI).connection;
-
-  result = await mogoFunc(MongoDB);
-}
-
-/**
  * 
  */
 const initializeDBSchema = async () => {
   const users = (client) => {
-    // schema for One User
-    var user = new client.Schema({
-      name: String,
-      password: String,
-      created: { type: Date, default: Date.now },
-    });
 
-    // Create a model based on the schema
-    const USERS_MODEL = client.model("users", user);
 
-    const newuser = new user({ name: "James", password: "pp" });
 
-    // Save it to database
-    newuser.save(function (err) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(newuser);
-      }
-    });
   };
   await executemongoDBFunction(users);
 
