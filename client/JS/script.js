@@ -1,5 +1,6 @@
 let socket = new WebSocket("ws://localhost:3000");
 const actualUser = ('; '+document.cookie).split(`; username=`).pop().split(';')[0];
+document.getElementById("yourName").innerText = actualUser;
 let actualChat = 0;
 
 socket.addEventListener("open", (event) => {
