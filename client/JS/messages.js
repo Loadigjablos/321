@@ -41,7 +41,7 @@ function showHistory(group) {
 
 function sendMessage() {
     const messageField = document.getElementById("MessageField");
-    socket.send(actualUser + ";" + messageField.innerText + ";" + actualChat);
+    socket.send("Message;" + actualUser + ";" + messageField.innerText + ";" + actualChat);
     messageField.innerText = "";
     messageField.scrollIntoView();
 }

@@ -11,11 +11,24 @@ socket.addEventListener("message", (event) => {
   reader.onload = function() {
     console.log(`Received message: ${reader.result}`);
     const messageParts = reader.result.split(';');
-    if (actualChat == messageParts[2]) {
-      if (actualUser != messageParts[0]) {
-        createMessage(1, {"username": messageParts[0], "message": messageParts[1]});
+    if (messageParts[0] == "Message") {
+      if (actualChat == messageParts[3]) {
+        if (actualUser != messageParts[1]) {
+          createMessage(1, {"username": messageParts[1], "message": messageParts[2]});
+        } else {
+          createMessage(0, {"username": messageParts[1], "message": messageParts[2]});
+        }
+      }
+    } else if (messageParts[0] == "New contact") {
+      if (messageParts[2].includes(actualUser)) {
+        const groupData = {
+          "name": messageParts[1],
+          "members": messageParts[2].split(','),
+          "messages": []
+        }
+        createContact(groupData);
       } else {
-        createMessage(0, {"username": messageParts[0], "message": messageParts[1]});
+        
       }
     }
   }

@@ -4,9 +4,9 @@ function createGroup() {
     const chooseType = document.createElement("div");
     const groupChat = document.createElement("button");
     const privateChat = document.createElement("button");
-    const usernameDiv = document.createElement("div");
-    const usernameInput = document.createElement("input");
-    const usernameLabel = document.createElement("label");
+    const groupDiv = document.createElement("div");
+    const groupNameInput = document.createElement("input");
+    const groupLabel = document.createElement("label");
     const userDiv = document.createElement("div");
     const userInput = document.createElement("input");
     const userLabel = document.createElement("label");
@@ -15,7 +15,7 @@ function createGroup() {
     groupChat.innerText = "Group chat";
     privateChat.innerText = "Private chat";
     createChat.innerText = "Create"
-    usernameLabel.innerText = "Group name";
+    groupLabel.innerText = "Group name";
     userLabel.innerText = "User/-s";
     //Design for close alert and shading div
     const chatStyle = "w-auto border-black m-auto text-[1.4rem] rounded-[0.75rem] bg-[rgb(218,33,110)] p-2";
@@ -26,11 +26,11 @@ function createGroup() {
     chooseType.className = "flex flex-row w-[100%] mt-4 mb-4";
     groupChat.className = chatStyle;
     privateChat.className = chatStyle;
-    usernameDiv.className = divStyle;
+    groupDiv.className = divStyle;
     userDiv.className = divStyle;
-    usernameInput.className = inputStyle;
+    groupNameInput.className = inputStyle;
     userInput.className = inputStyle;
-    usernameLabel.className = labelStyle;
+    groupLabel.className = labelStyle;
     userLabel.className = labelStyle;
     createChat.className = chatStyle
     //Connect header
@@ -39,32 +39,28 @@ function createGroup() {
     window.appendChild(chooseType);
     //Events
     groupChat.addEventListener("click", function() {
-        usernameDiv.appendChild(usernameInput);
-        usernameDiv.appendChild(usernameLabel);
-        window.appendChild(usernameDiv);
+        groupDiv.appendChild(groupNameInput);
+        groupDiv.appendChild(groupLabel);
+        window.appendChild(groupDiv);
         userDiv.appendChild(userInput);
         userDiv.appendChild(userLabel);
         window.appendChild(userDiv);
         window.appendChild(createChat);
     });
     privateChat.addEventListener("click", function() {
-        usernameDiv.appendChild(usernameInput);
-        usernameDiv.appendChild(usernameLabel);
-        window.appendChild(usernameDiv);
+        groupDiv.appendChild(groupNameInput);
+        groupDiv.appendChild(groupLabel);
+        window.appendChild(groupDiv);
         userDiv.appendChild(userInput);
         userDiv.appendChild(userLabel);
         window.appendChild(userDiv);
         window.appendChild(createChat);
     });
     createChat.addEventListener("click", function() {
-        const groupData = {
-            "name": usernameInput.value,
-            "members": [
-                userInput.value
-            ],
-            "messages": []
-        }
-        createContact(groupData);
+        let allUsers = userInput.value.split(/\s+/);
+        allUsers.push(actualUser);
+        socket.send("New contact;" + groupNameInput.value + ";" + allUsers);
+        window.remove();
     });
     //Connect other elements
     document.body.appendChild(window);
