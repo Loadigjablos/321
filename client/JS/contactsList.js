@@ -96,7 +96,9 @@ function showList() {
 }
 function hideList() {
     const dropList = document.getElementById("dropList");
+    const searchField = document.getElementById("searchField");
     dropList.style.display = "none";
+    searchField.style.display = "none";
 }
 
 contactList(testGroup);
