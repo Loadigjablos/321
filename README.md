@@ -1,4 +1,4 @@
-# 321 BusidoCHat | Short describing
+# 321 BusidoChat | Short describing
 This is a small application developed by Matvej Levantsou and Dominic Streit.
 The launch is carried out using Docker.
 ## How to start

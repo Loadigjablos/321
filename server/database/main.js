@@ -7,7 +7,7 @@ const initializeMariaDB = async () => {
     host: process.env.DB_HOST || "localhost",
     user: process.env.DB_USER || "root",
     password: process.env.DB_PASSWORD || "supersecret123",
-    connectionLimit: 5,
+    //connectionLimit: 100,
   });
 };
 

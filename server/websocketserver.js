@@ -22,17 +22,15 @@ const onConnection = (ws) => {
   ws.id = id;
 
   ws.on("message", (message) => {
-    const data = JSON.parse(message);
-
+    const messageParts = (Buffer.from(message).toString()).split(';');
+    const chatName = messageParts[3];
+    const name = messageParts[1];
+    const messageS = messageParts[2]
+    const nowTime = String(new Date((parseInt(new Date().toJSON().slice(11, 13)) * 3600 + parseInt(new Date().toJSON().slice(14, 16)) * 60 + 3600) * 1000).toJSON().slice(11, 16));
     for (conn in all_active_connections) {
-      all_active_connections[conn].send(`{
-          "chatname": "${data.chatname}",
-          "name": "${data.name}",
-          "message": "${data.message}",
-          "time": "${data.time}"
-        }`);
-        addNewMessageToGroupp(data.chatname, data.name, data.message, data.time);
+      all_active_connections[conn].send(message);  
     }
+    addNewMessageToGroupp(chatName, name, messageS, nowTime);
   }).on("close", function () {
     delete all_active_connections[ws.id];
   });

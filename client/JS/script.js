@@ -46,6 +46,8 @@ socket.addEventListener("message", (event) => {
         }
         createContact(groupData, 1);
       }
+    } else if (messageParts[0] == "StatusCheck") {
+      console.log(actualUser);
     }
   }
   reader.readAsText(event.data);
@@ -65,3 +67,5 @@ document.body.onload = function() {
   }
   customAlert(3,'Successfully login');
 }
+
+//setInterval(function(){socket.send("StatusCheck");}, 3000);
