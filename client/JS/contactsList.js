@@ -1,4 +1,5 @@
 let testGroup = [];
+let testUserList = [];
 
 function GetAllContactsRequest() {
     request = new XMLHttpRequest();
@@ -15,6 +16,7 @@ function onRequstUpdate(event) {
     }
     if (request.status == 200 || request.status == 201) {
         testGroup = JSON.parse(request.responseText);
+        testUserList = testGroup[0].users;
         for (let i = 0; i < testGroup.length; i++) {
             for (let j = 0; j < testGroup[i].members.length; j++) {
                 if (testGroup[i].members[j].includes(actualUser)) {
@@ -22,18 +24,6 @@ function onRequstUpdate(event) {
                 }
             }
         }
-        // for (let i = 0; i < testGroup.length; i++) {
-        //     let userSS = testGroup[i].users.replace(/['"]+/g, '').replace(/[\[\]']+/g,'');
-        //     userSS = userSS.split(',');
-        //     if (userSS.includes(actualUser)) {
-        //         let mainData = {
-        //             "id": testGroup[i].id,
-        //             "name": testGroup[i].name,
-        //             "members": userSS
-        //         }
-        //         createContact(mainData);
-        //     }
-        // }
         const contactList = document.getElementById("contactList");
         contactList.firstChild.click();
     } else {
@@ -41,9 +31,6 @@ function onRequstUpdate(event) {
     }
 }
 
-function contactList(testGroup) {
-    
-}
 function createContact(group, contactType = 0) {
     //Create DOM elements
     const contactList = document.getElementById("contactList");

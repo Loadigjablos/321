@@ -73,10 +73,13 @@ const getGroupMessages = async (user) => {
         let databaseName = "groupchat_" + groups[i].name;
         let query = `SELECT * FROM ${databaseName}`;
         const data = await executeSQL(query);
+        query = `SELECT * FROM users`;
+        const dataUsers = await executeSQL(query);
         let groupChatJSON = {
           name: groups[i].name,
           members: groups[i].users.replace(/['"]+/g, '').replace(/[\[\]']+/g,'').split(','),
           messages: data,
+          users: dataUsers
         };
         allMessages.push(groupChatJSON);
       }

@@ -1,5 +1,5 @@
 const WebSocket = require("ws");
-const { addNewMessageToGroupp } = require("./database/groupchat");
+const { addNewMessageToGroupp, createNewGroup } = require("./database/groupchat");
 
 // source: https://stackoverflow.com/questions/6623113/is-it-possible-to-send-a-message-to-all-active-websocket-connections-using-eith
 let global_counter = 0;
@@ -24,18 +24,26 @@ const onConnection = (ws) => {
     const messageParts = (Buffer.from(message).toString()).split(';');
 
     console.log(messageParts);
+    const nowTime = String(new Date((parseInt(new Date().toJSON().slice(11, 13)) * 3600 + parseInt(new Date().toJSON().slice(14, 16)) * 60 + 3600) * 1000).toJSON().slice(11, 16));
+    if (messageParts[0] == "StatusCheck") {
 
-    if(messageParts[0] == "StatusCheck") {
-
-    } else if(messageParts[0] == "Message") {
+    } else if (messageParts[0] == "Message") {
       const chatName = messageParts[3];
       const name = messageParts[1];
+      console.log("NNNNNNNNNNNNAAAAAAAAAAAAAAAAAAAAMMMMMMMMMMEEEEEE " + name);
       const messageS = messageParts[2]
-      const nowTime = String(new Date((parseInt(new Date().toJSON().slice(11, 13)) * 3600 + parseInt(new Date().toJSON().slice(14, 16)) * 60 + 3600) * 1000).toJSON().slice(11, 16));
       for (conn in all_active_connections) {
         all_active_connections[conn].send(message);  
       }
       addNewMessageToGroupp(chatName, name, messageS, nowTime);
+    } else if (messageParts[0] == "New contact") {
+      const chatName = messageParts[1];
+      const names = JSON.stringify(messageParts[2]);
+      console.log("NNNNNNNNNNNNAAAAAAAAAAAAAAAAAAAAMMMMMMMMMMEEEEEE " + names);
+      for (conn in all_active_connections) {
+        all_active_connections[conn].send(message);  
+      }
+      createNewGroup(chatName, names);
     }
   }).on("close", function () {
     delete all_active_connections[ws.id];
