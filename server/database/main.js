@@ -15,10 +15,10 @@ const executeSQL = async (query) => {
   try {
     conn = await pool.getConnection();
     const res = await conn.query(query);
-    conn.end();
+    //conn.end();
     return res;
   } catch (err) {
-    conn.end();
+    //conn.end();
     console.log(err);
   }
 };
