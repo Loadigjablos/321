@@ -48,11 +48,11 @@ const getGroupMessages = async (user) => {
 
   let allMessages = [];
 
-  groups.forEach(async function (group) {
+  for (let group of groups) {
     const databaseName = "groupchat_" + group.name;
     const query = `SELECT * FROM ${databaseName}`;
 
-    JSON.parse(group.users).forEach(async function (chatMember) {
+    for (let chatMember of JSON.parse(group.users)) {
       if ((user == chatMember)) {
         const data = await executeSQL(query);
         let groupChatJSON = {
@@ -61,10 +61,9 @@ const getGroupMessages = async (user) => {
           messages: data,
         };
         allMessages.push(groupChatJSON);
-
       }
-    });
-  });
+    }
+  }
   return allMessages;
 };
 

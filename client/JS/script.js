@@ -69,3 +69,48 @@ document.body.onload = function() {
 }
 
 //setInterval(function(){socket.send("StatusCheck");}, 3000);
+
+/*
+[
+    {
+        "name": "BusidoChat",
+        "members": [
+            "Levan", "Mat", "Streit"
+        ],
+        "messages": [
+            {
+                "username": "Mat",
+                "message": "Jojo"
+            },
+            {
+                "username": "Mat",
+                "message": "Kambodjo"
+            },
+            {
+                "username": "Brat",
+                "message": "Tadjikistan one love"
+            },
+        ]
+    },
+    {
+        "name": "Developers",
+        "members": [
+            "Kor", "Mat", "Mor"
+        ],
+        "messages": [
+            {
+                "username": "Abobus",
+                "message": "Amogus"
+            },
+            {
+                "username": "Mat",
+                "message": "Reyniaaaaa"
+            },
+            {
+                "username": "Levan",
+                "message": "DAVIIIIIIIII GAVNOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+            },
+        ]
+    }
+]
+*/
