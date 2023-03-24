@@ -18,7 +18,7 @@ const reciveAllMessagesInterface = async (req, res) => {
     const data = await getGroupMessages(user);
 
     if (data !== false) {
-      res.status(201).json(data);
+      res.status(200).json(data);
     } else {
       res.status(400).json({
         message: "Failed",
