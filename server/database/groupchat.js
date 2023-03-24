@@ -7,13 +7,16 @@ const createNewGroup = async (name, users) => {
 
   const newGroupChatQueryInsert = `INSERT INTO groupchats (id, users, name) VALUES (NULL, '${name}', '${usersString}');`;
 
-  const newGroupChatQueryDB = `CREATE TABLE '${groupChatName}' (id INT NOT NULL AUTO_INCREMENT , username VARCHAR(255) NOT NULL , message TEXT NOT NULL , PRIMARY KEY (id))`;
+  const newGroupChatQueryDB = `CREATE TABLE ${groupChatName} (
+    id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    PRIMARY KEY (id),
+  );`;
 
   await executeSQL(newGroupChatQueryInsert);
   await executeSQL(newGroupChatQueryDB);
 };
-
-//createNewGroup("jeffry", ["hi", "james"]);
 
 const deleteGroup = async (name) => {
   const groupChatName = "groupchat_" + name;
