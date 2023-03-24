@@ -17,11 +17,9 @@ const onConnection = (ws) => {
   let id = global_counter++;
 
   console.log("[" + id + "] New websocket connection");
-  console.log("ALL CONNECTIONS: " + ws);
-  console.log("GLOBAL Connection: " + global_counter++);
+  console.log("GLOBAL Connection: " + global_counter);
   all_active_connections[id] = ws;
   ws.id = id;
-
   ws.on("message", (message) => {
     const messageParts = (Buffer.from(message).toString()).split(';');
     const chatName = messageParts[3];
@@ -34,8 +32,10 @@ const onConnection = (ws) => {
     addNewMessageToGroupp(chatName, name, messageS, nowTime);
   });
   ws.on("close", function () {
+    global_counter = global_counter - 1;
     delete all_active_connections[ws.id];
   });
+  
 };
 
 module.exports = { initializeWebsocketServer };

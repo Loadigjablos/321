@@ -22,6 +22,18 @@ function onRequstUpdate(event) {
                 }
             }
         }
+        // for (let i = 0; i < testGroup.length; i++) {
+        //     let userSS = testGroup[i].users.replace(/['"]+/g, '').replace(/[\[\]']+/g,'');
+        //     userSS = userSS.split(',');
+        //     if (userSS.includes(actualUser)) {
+        //         let mainData = {
+        //             "id": testGroup[i].id,
+        //             "name": testGroup[i].name,
+        //             "members": userSS
+        //         }
+        //         createContact(mainData);
+        //     }
+        // }
         const contactList = document.getElementById("contactList");
         contactList.firstChild.click();
     } else {
@@ -81,4 +93,4 @@ function hideList() {
     dropList.style.display = "none";
     searchField.style.display = "none";
 }
-GetAllContactsRequest();
+

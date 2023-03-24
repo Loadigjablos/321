@@ -79,7 +79,8 @@ document.body.onload = function() {
   if (actualUser == "") {
     document.location.href = "gate.html";
   }
-  customAlert(3,'Successfully login');
+  GetAllContactsRequest();
+  //customAlert(3,'Successfully login');
 }
 
 //setInterval(function(){socket.send("StatusCheck;" + actualUser)}, 5000);

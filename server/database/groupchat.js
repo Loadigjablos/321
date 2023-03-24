@@ -67,10 +67,21 @@ const getGroupMessages = async (user) => {
   try {
     const groupsQuery = `SELECT * FROM groupchats`;
     const groups = await executeSQL(groupsQuery);
-
     let allMessages = [];
-
-    for (let group of groups) {
+    for (let i = 0; i < groups.length; i++) {
+      if(groups[i].users.includes(user)) {
+        let databaseName = "groupchat_" + groups[i].name;
+        let query = `SELECT * FROM ${databaseName}`;
+        const data = await executeSQL(query);
+        let groupChatJSON = {
+          name: groups[i].name,
+          members: groups[i].users.replace(/['"]+/g, '').replace(/[\[\]']+/g,'').split(','),
+          messages: data,
+        };
+        allMessages.push(groupChatJSON);
+      }
+    }
+    /*for (let group of groups) {
       const databaseName = "groupchat_" + group.name;
       const query = `SELECT * FROM ${databaseName}`;
 
@@ -85,7 +96,7 @@ const getGroupMessages = async (user) => {
           allMessages.push(groupChatJSON);
         }
       }
-    }
+    }*/
     return allMessages;
   } catch (e) {
     console.log(e);

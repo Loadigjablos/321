@@ -14,7 +14,7 @@ const {
 const reciveAllMessagesInterface = async (req, res) => {
   try {
     const user = validateToken(req.cookies.token, res).name;
-
+    console.log("USSSSSSSSSSSSSSSEEEEEEEEEEEEER " + user);
     const data = await getGroupMessages(user);
 
     if (data !== false) {
