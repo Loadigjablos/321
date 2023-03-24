@@ -86,7 +86,7 @@ const login = (req, res) => {
 
         res.cookie("token", createToken(currentUser.name), {
           httpOnly: true,
-          maxAge: 6000000, // 6h
+          maxAge: 60000000, // 6h
         });
 
         res.status(201).json({
