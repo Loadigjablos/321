@@ -6,7 +6,7 @@ const SECRET = "FAKE_SECRET";
 
 const createToken = (name) => {
   const token = jwt.sign({ name }, SECRET, {
-    expiresIn: 72000,
+    expiresIn: 7200000,
   });
 
   return token;
