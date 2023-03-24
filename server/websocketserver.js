@@ -22,6 +22,7 @@ const onConnection = (ws) => {
   ws.id = id;
 
   ws.on("message", (message) => {
+    console.log(message);
     const data = JSON.parse(message);
 
     for (conn in all_active_connections) {
