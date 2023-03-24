@@ -83,4 +83,10 @@ document.body.onload = function() {
   //customAlert(3,'Successfully login');
 }
 
+function deleteMyself() {
+  let request = new XMLHttpRequest();
+  request.open("DELETE", "http://localhost:3000/api/User");
+  request.send();
+}
+
 //setInterval(function(){socket.send("StatusCheck;" + actualUser)}, 5000);
