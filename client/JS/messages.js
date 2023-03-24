@@ -9,12 +9,36 @@ function showGroup(group, contactType = 0) {
     const groupInformation = document.createElement("div");
     const groupName = document.createElement("div");
     const groupMembers = document.createElement("div");
+    const statusWindow = document.createElement("div");
+    //Hide show status
+    groupMembers.addEventListener("click", function() {
+        if (statusWindow.style.display == "none" || statusWindow.style.display == "") {
+            statusWindow.style.display = "block";
+            statusWindow.innerHTML = " ";
+            for (let i = 0; i < group.members.length; i++) {
+                let groupMemberDiv = document.createElement("div");
+                let groupMemberStatus = document.createElement("div");
+                let groupMemberName = document.createElement("div");
+                groupMemberDiv.className = "flex flex-row min-w-[6rem] bg-[rgb(218,33,110)]";
+                groupMemberName.className = "text-[1rem] p-2 w-auto shadow-lg rounded-6 text-white";
+                groupMemberStatus.className = "absolute right-0 mt-[0.5rem] bg-gray-300 w-[20px] h-[20px]"
+                groupMemberName.innerText = group.members[i];
+                groupMemberDiv.appendChild(groupMemberName);
+                groupMemberDiv.appendChild(groupMemberStatus);
+                statusWindow.appendChild(groupMemberDiv);
+            }
+        } else {
+            statusWindow.style.display = "none"
+        }
+    })
+    //Hide design
+    statusWindow.className = "absolute bg-white left-auto right-auto hidden z-[100] border-2 shadow-lg";
     //Design for this elements
     groupAvatar.className = "flex items-center w-[2.5rem] h-[2.5rem] mr-[0.625rem]";
     avatarImage.className = "w-[100%] h-[100%] rounded-[50%] border-2";
     groupInformation.className = "flex flex-col justify-center";
     groupName.className = "flex items-center text-[1.125rem] leading-[1.375rem] font-bold";
-    groupMembers.className = "text-[0.875rem] leading-[1.375rem]";
+    groupMembers.className = "text-[0.875rem] leading-[1.375rem] hover:bg-gray-300 cursor-pointer";
     //Text for elements
     groupName.innerText = group.name;
     if (contactType === 0) {
@@ -27,6 +51,7 @@ function showGroup(group, contactType = 0) {
     //Connect all elements
     groupAvatar.appendChild(avatarImage);
     groupInformation.appendChild(groupName);
+    groupMembers.appendChild(statusWindow);
     groupInformation.appendChild(groupMembers);
     header.appendChild(groupAvatar);
     header.appendChild(groupInformation);
