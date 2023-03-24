@@ -1,34 +1,36 @@
 let testGroup = [];
 
 function GetAllContactsRequest() {
-    let request = new XMLHttpRequest();
+    request = new XMLHttpRequest();
     request.open("GET", "http://localhost:3000/api/AllMessages");
-    request.onreadystatechange = onRequstUpdate;
+    request.onreadystatechange = function() {
+        onRequstUpdate(event);
+    };
     request.send();
+}
 
-    function onRequstUpdate() {
-        if (request.readyState < 4) {
-            return;
+function onRequstUpdate(event) {   
+    if (request.readyState < 4) {
+        return;
+    }
+    if (request.status == 200 || request.status == 201) {
+        testGroup = JSON.parse(request.responseText);
+        for (let i = 0; i < testGroup.length; i++) {
+            for (let j = 0; j < testGroup[i].members.length; j++) {
+                if (testGroup[i].members[j].includes(actualUser)) {
+                    createContact(testGroup[i]);
+                }
+            }
         }
-        if (request.status == 200 || request.status == 201) {
-            testGroup = JSON.parse(request.responseText);
-            contactList(testGroup);
-            const contactList = document.getElementById("contactList");
-            contactList.firstChild.click();
-        } else {
-            customAlert(1, "Unable To Get Any Data");
-        }
+        const contactList = document.getElementById("contactList");
+        contactList.firstChild.click();
+    } else {
+        customAlert(1, "Unable To Get Any Data");
     }
 }
 
-function contactList(allGroups) {
-    for (let i = 0; i < allGroups.length; i++) {
-        for (let j = 0; j < allGroups[i].members.length; j++) {
-            if (allGroups[i].members[j].includes(actualUser)) {
-                createContact(allGroups[i]);
-            }
-        }
-    }
+function contactList(testGroup) {
+    
 }
 function createContact(group, contactType = 0) {
     //Create DOM elements

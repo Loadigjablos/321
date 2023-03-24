@@ -82,4 +82,4 @@ document.body.onload = function() {
   customAlert(3,'Successfully login');
 }
 
-setInterval(function(){socket.send("StatusCheck;" + actualUser)}, 5000);
+//setInterval(function(){socket.send("StatusCheck;" + actualUser)}, 5000);

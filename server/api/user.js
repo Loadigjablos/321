@@ -76,8 +76,12 @@ const login = (req, res) => {
         .digest("hex");
 
       getOneUserByName(name).then((user) => {
-        const currentUser = user[0];
-
+        let currentUser = "";
+        if (user === undefined) {
+          currentUser = name;
+        } else {
+          currentUser = user[0];
+        }
         if (!currentUser.name) {
           res.status(404).json({
             message: "User was not found",

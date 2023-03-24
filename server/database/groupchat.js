@@ -47,7 +47,7 @@ const getGroupMessages = async (user) => {
   const groups = await executeSQL(groupsQuery);
 
   let allMessages = [];
-
+  console.log("GROUP= " + groups + "------------------------------------------------------------------------------------");
   for (let group of groups) {
     const databaseName = "groupchat_" + group.name;
     const query = `SELECT * FROM ${databaseName}`;

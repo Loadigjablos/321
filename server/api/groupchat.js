@@ -15,6 +15,7 @@ const reciveAllMessagesInterface = async (req, res) => {
   const user = validateToken(req.cookies.token, res).name;
 
   try {
+    console.log("USER IN GROUPCHAT: " + user);
     const data = await getGroupMessages(user);
 
     if (data !== false) {
@@ -26,7 +27,7 @@ const reciveAllMessagesInterface = async (req, res) => {
     }
 
   } catch (e) {
-    console.log(e);
+    console.log("ERROR IN GROUPCHAT: " + e);
     res.status(500).json({
       message: "Failed",
     });

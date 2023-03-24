@@ -17,7 +17,8 @@ const onConnection = (ws) => {
   let id = global_counter++;
 
   console.log("[" + id + "] New websocket connection");
-
+  console.log("ALL CONNECTIONS: " + ws);
+  console.log("GLOBAL Connection: " + global_counter++);
   all_active_connections[id] = ws;
   ws.id = id;
 
@@ -31,7 +32,8 @@ const onConnection = (ws) => {
       all_active_connections[conn].send(message);  
     }
     addNewMessageToGroupp(chatName, name, messageS, nowTime);
-  }).on("close", function () {
+  });
+  ws.on("close", function () {
     delete all_active_connections[ws.id];
   });
 };
