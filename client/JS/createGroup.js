@@ -66,13 +66,34 @@ function createGroup() {
         window.appendChild(userDiv);
         window.appendChild(createChat);
         createChat.addEventListener("click", function() {
-            if (userInput.value != "" || groupNameInput.value != "") {
-                let allUsers = userInput.value.split(/\s+/);
-                allUsers.push(actualUser);
-                socket.send("New contact;" + groupNameInput.value + ";" + allUsers);
-                window.remove();
+            let allUsers = userInput.value.split(/\s+/);
+            let trueUsers = [];
+            const allContacts = document.getElementById("contactList").children;
+            allUsers.push(actualUser);
+            let idiotStop = 0;
+            for (let i = 0; i < allContacts.length; i++) {
+                if (allContacts[i].children[1].children[0].innerText == groupNameInput.value) {
+                    idiotStop = 1;
+                }
+            }
+            if (idiotStop === 0) {
+                if (userInput.value != "" || groupNameInput.value != "") {                
+                    for (let i = 0; i < allUsers.length; i++) {
+                        if (testUserList.some(item => item.name == allUsers[i])) {
+                            trueUsers.push(allUsers[i]);
+                        }
+                    }
+                    if (allUsers.length > trueUsers.length) {
+                        customAlert(2, "Some users doesn't exist");
+                    } else {
+                        socket.send("New contact;" + groupNameInput.value + ";" + allUsers);
+                        window.remove();
+                    }      
+                } else {
+                    customAlert(2, "Please provide group name and username for 1 or more user/-s");
+                }
             } else {
-                customAlert(2, "Please provide group name and username for 1 or more user/-s");
+                customAlert(2, "You already have this group");
             }
         });
     });
