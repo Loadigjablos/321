@@ -28,13 +28,13 @@ services:
     ports:
       - 9200:80
 
-  webserver:
-    depends_on:
-      - mariadb
-    container_name: server
-    image: dominicstreit/321:latest
-    ports:
-      - 3000:3000
+#  webserver:
+#    depends_on:
+#      - mariadb
+#    container_name: server
+#    image: dominicstreit/321:latest
+#    ports:
+#      - 3000:3000
 
 volumes:
   m321_project_mariadb:

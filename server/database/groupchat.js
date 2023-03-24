@@ -47,7 +47,7 @@ const getGroupMessages = async (user) => {
         const databaseName = "groupchat_" + group.name;
 
         const query = `SELECT * FROM ${databaseName}`;
-        const allMessagesFromThisGroup = await executeSQL(query);
+        const allMessagesFromThisGroup = executeSQL(query);
 
         const groupChatJSON = {
           name: group.name,
