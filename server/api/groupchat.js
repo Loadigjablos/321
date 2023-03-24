@@ -11,13 +11,11 @@ const {
  * @param req
  * @param res
  */
-const reciveAllMessagesInterface = (req, res) => {
+const reciveAllMessagesInterface = async (req, res) => {
   const user = validateToken(req.cookies.token, res).name;
 
-  //const data = await getGroupMessages(user);
-
   try {
-    //const data = await getGroupMessages(user);
+    const data = await getGroupMessages(user);
 
     if (data !== false) {
       res.status(201).json(data);

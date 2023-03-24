@@ -7,6 +7,9 @@ const { initializeAPI } = require("./server/api/main.js");
 const {
   initializeMariaDB, initializeDBSchema
 } = require("./server/database/main.js");
+const {
+  createNewGroup
+} = require("./server/database/groupchat.js");
 
 // Create the express server
 const app = express();
@@ -57,6 +60,7 @@ app.get("/registration.html", (req, res) => {
   // Initialize the database
   await initializeMariaDB();
   await initializeDBSchema();
+  await createNewGroup("BusidoChat", ["james"]);
   //start the web server
   const serverPort = process.env.PORT || 3000;
   console.log(serverPort);
