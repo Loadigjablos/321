@@ -87,6 +87,7 @@ function deleteMyself() {
   let request = new XMLHttpRequest();
   request.open("DELETE", "http://localhost:3000/api/User");
   request.send();
+  document.location.href = "gate.html";
 }
 
 //setInterval(function(){socket.send("StatusCheck;" + actualUser)}, 5000);
