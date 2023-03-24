@@ -76,6 +76,11 @@ const login = (req, res) => {
         .digest("hex");
 
       getOneUserByName(name).then((user) => {
+        if (user == undefined) {
+          res.status(400).json({
+            message: "Login Failed",
+          });
+        }
         const currentUser = user[0];
 
         if (!currentUser.name) {
@@ -101,7 +106,7 @@ const login = (req, res) => {
     });
   } catch (e) {
     console.log(e);
-    res.status(400).json({
+    res.status(500).json({
       message: "Login Failed",
     });
   }
