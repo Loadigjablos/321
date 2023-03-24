@@ -40,27 +40,27 @@ function connectToGroup() {
   connectToChat.addEventListener("click", function () {
     const allContacts = document.getElementById("contactList").children;
     let checkTrue = 0;
-    for (let i = 0; i < testGroup.length; i++) {
-      if (roomName.value == testGroup[i].name) {
-        for (let j = 0; j < allContacts.length; j++) {
-          if (
-            allContacts[j].children[1].children[0].innerText == roomName.value
-          ) {
-            checkTrue = 1;
-            customAlert(1, "You already have this chat");
-            break;
-          }
-        }
-        if (checkTrue == 0) {
-          createContact(testGroup[i]);
-          break;
-        }
-      } else {
-        if (testGroup.length - 1 == i) {
-          customAlert(2, "This group doesn't exist");
-        }
-      }
-    }
+    // for (let i = 0; i < testGroup.length; i++) {
+    //   if (roomName.value == testGroup[i].name) {
+    //     for (let j = 0; j < allContacts.length; j++) {
+    //       if (
+    //         allContacts[j].children[1].children[0].innerText == roomName.value
+    //       ) {
+    //         checkTrue = 1;
+    //         customAlert(1, "You already have this chat");
+    //         break;
+    //       }
+    //     }
+    //     if (checkTrue == 0) {
+    //       createContact(testGroup[i]);
+    //       break;
+    //     }
+    //   } else {
+    //     if (testGroup.length - 1 == i) {
+    //       customAlert(2, "This group doesn't exist");
+    //     }
+    //   }
+    // }
     let request = new XMLHttpRequest();
     request.open("POST", "http://localhost:3000/api/GrouppJoin");
     request.onreadystatechange = onRequstUpdate;

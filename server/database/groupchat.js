@@ -50,8 +50,10 @@ const joinGroupp = async (user, groupName) => {
     const querySelect = `SELECT users FROM groupchats WHERE name = '${groupName}'`;
     const result = await executeSQL(querySelect);
 
-    let newThing = JSON.parse(result[0].users);
-    newThing.push(user);
+    console.log(result[0].users.replace(/['"]+/g, ''));
+    let newThing = (result[0].users.replace(/['"]+/g, '')).split(',');
+
+    newThing.push(user);  
 
     const queryUpdate = `UPDATE groupchats SET users = '${JSON.stringify(
       newThing

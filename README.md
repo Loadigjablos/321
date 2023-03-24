@@ -15,3 +15,7 @@ Also you can use visual studio to clone repo or download the programm as code.
 4. Open in browser: localhost:3000
 ## For tailwind css testing
 npx tailwindcss -i ./client/CSS/style.css -o ./client/CSS/tailWind.css --watch
+## BUGS
+1. On connection to any group you have to restart page
+2. Private group not funktion
+3. After account deleting the user can work like a ghost up to 6 hours
