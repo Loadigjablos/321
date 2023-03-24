@@ -1,4 +1,13 @@
 function createGroup() {
+    //Check
+    try {
+        let allWindows = document.getElementsByClassName("absolute top-[25%] left-[35%] text-black w-[35%] text-[1rem] flex flex-col bg-white justify-center");
+        for (let i = 0; i < allWindows.length; i++) {
+            allWindows[i].innerHTML = " ";
+        }
+    } catch (pizdec) {
+
+    }
     //Create DOM elements
     const window = document.createElement("div");
     const chooseType = document.createElement("div");

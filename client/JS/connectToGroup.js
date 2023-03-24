@@ -1,4 +1,12 @@
 function connectToGroup() {
+    try {
+        let allWindows = document.getElementsByClassName("absolute top-[25%] left-[35%] text-black w-[35%] text-[1rem] flex flex-col bg-white justify-center");
+        for (let i = 0; i < allWindows.length; i++) {
+            allWindows[i].innerHTML = " ";
+        }
+    } catch (pizdec) {
+
+    }
     //Create DOM elements
     const window = document.createElement("div");
     const connectDiv = document.createElement("div");
@@ -39,7 +47,11 @@ function connectToGroup() {
                     createContact(testGroup[i]);
                     break;
                 }
-            }  
+            } else {
+                if (testGroup.length - 1 == i) {
+                    customAlert(2, "This group doesn't exist");
+                }
+            }
         }
         window.remove();
     });
