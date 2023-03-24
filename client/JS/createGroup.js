@@ -111,13 +111,28 @@ function createGroup() {
              }
          });
         createChat.addEventListener("click", function() {
-            if (userInput.value != "") {
-                let allUsers = userInput.value.split(/\s+/);
-                allUsers.push(actualUser);
-                socket.send("New private contact;" + allUsers);
-                window.remove();
+            let allUsers = userInput.value.split(/\s+/);
+            allUsers.push(actualUser);
+            const allContacts = document.getElementById("contactList").children;
+            let idiotStop = 0;
+            for (let i = 0; i < allContacts.length; i++) {
+                if (allContacts[i].children[1].children[0].innerText == userInput.value) {
+                    idiotStop = 1;
+                }
+            }
+            if (idiotStop === 0) {
+                if (userInput.value != "") {
+                    if (testUserList.some(item => item.name == userInput.value)) {
+                        socket.send("New private contact;" + allUsers);
+                        window.remove();
+                    } else {
+                        customAlert(2, "Contact with this name doesn't exist");
+                    }
+                } else {
+                    customAlert(2, "Please provide username");
+                }
             } else {
-                customAlert(2, "Please provide username");
+                customAlert(2, "You already have contact with this person");
             }
         });
     });
