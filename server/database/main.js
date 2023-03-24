@@ -1,54 +1,34 @@
-/**
- * connects to mongodb
- * @param mogofunc this is a function that will get executed using the mongo client as a parameter
- * source: https://www.mongodb.com/developer/languages/javascript/node-connect-mongodb/
- */
+let pool = null;
 
-const executemongoDBFunction = async (mogoFunc) => {
-  let result;
-  const { MongoClient } = require("mongodb");
-  const URI = "mongodb://user:pass@localhost/mychat/?retryWrites=true&w=majority";
-  const CLIENT = new MongoClient(URI);
+const initializeMariaDB = async () => {
+  const mariadb = require("mariadb");
+  pool = mariadb.createPool({
+    database: process.env.DB_NAME || "mychat",
+    host: process.env.DB_HOST || "localhost",
+    user: process.env.DB_USER || "root",
+    password: process.env.DB_PASSWORD || "supersecret123",
+    connectionLimit: 5,
+  });
+};
+
+const executeSQL = async (query) => {
   try {
-    await CLIENT.connect();
-
-    // The provided function gets called
-    result = await mogoFunc(CLIENT);
+    conn = await pool.getConnection();
+    const res = await conn.query(query);
+    conn.end();
+    return res;
   } catch (err) {
-    console.error(err);
-  } finally {
-    await CLIENT.close();
-    return result;
+    conn.end();
+    console.log(err);
   }
 };
 
-/**
- * 
- */
 const initializeDBSchema = async () => {
-  const users = (client) => {
+  const userTableQuery = `CREATE TABLE users (id INT NOT NULL AUTO_INCREMENT , name VARCHAR(255) NOT NULL , password VARCHAR(255) NOT NULL , PRIMARY KEY (id), UNIQUE (name))`;
+  await executeSQL(userTableQuery);
 
-
-
-  };
-  await executemongoDBFunction(users);
-
-  const publicmessages = (client) => {
-    return listDatabases(client);
-  };
-  await executemongoDBFunction(publicmessages);
-
-  const groupchats = (client) => {
-    return listDatabases(client);
-  };
-  await executemongoDBFunction(groupchats);
+  const groupTableQuery = `CREATE TABLE groupchats (id INT NOT NULL AUTO_INCREMENT , users TEXT NOT NULL , name VARCHAR(255) NOT NULL , PRIMARY KEY (id), UNIQUE (name))`;
+  await executeSQL(groupTableQuery);
 };
 
-const {} = require("./user");
-
-const {} = require("./groupchat");
-
-module.exports = {
-  executemongoDBFunction,
-  initializeDBSchema,
-};
+module.exports = { executeSQL, initializeMariaDB, initializeDBSchema };

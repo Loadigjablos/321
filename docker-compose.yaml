@@ -1,36 +1,40 @@
 version: '1.9'
 
 services:
-#  mongo:
-#    image: mongo:latest
-#    container_name: mongodb
-#    restart: always
-#    ports:
-#      - 27017:27017
-#    environment:
-#      - MONGO_INITDB_ROOT_USERNAME=user
-#      - MONGO_INITDB_ROOT_PASSWORD=pass
-#      - MONGO_INITDB_DATABASE=mychat
-#    volumes:
-#      - 'm321_mongodb:/data/db'
-#      - ./mongo-init:/docker-entrypoint-initdb.d
-
-  mongo:
-    image: mongo:latest
-    container_name: mongodb
-    restart: always
-    ports:
-      - 27017:27017
+  mariadb:
+    image: mariadb:10.6.4-focal 
+    command: '--default-authentication-plugin=mysql_native_password'
     volumes:
-      - 'm321_mongodb:/data/db'
-
-  webserver:
-    depends_on:
-      - mongo
-    container_name: server
-    image: dominicstreit/321:latest
+    - m321_project_mariadb:/var/lib/mysql 
+    restart: always
+    environment:
+     - MYSQL_ROOT_PASSWORD=supersecret123
+     - MYSQL_DATABASE=mychat
+     - MYSQL_USER=mychat
+     - MYSQL_PASSWORD=pass
     ports:
-      - 3000:3000
+     - 3306:3306
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - mariadb
+    restart: always
+    environment:
+      - PMA_HOST=mariadb
+      - PMA_PORT=3306
+      - MYSQL_USER=mychat
+      - MYSQL_PASSWORD=mychatpassword
+    ports:
+      - 9200:80
+
+#  webserver:
+#    depends_on:
+#      - mariadb
+#    container_name: server
+#    image: dominicstreit/321:latest
+#    ports:
+#      - 3000:3000
 
 volumes:
-  m321_mongodb:
+  m321_project_mariadb:

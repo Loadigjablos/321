@@ -13,7 +13,6 @@ const initializeWebsocketServer = (server) => {
  * source: https://stackoverflow.com/questions/6623113/is-it-possible-to-send-a-message-to-all-active-websocket-connections-using-eith
  */
 const onConnection = (ws) => {
-
   let id = global_counter++;
 
   console.log("[" + id + "] New websocket connection");
@@ -22,32 +21,17 @@ const onConnection = (ws) => {
   ws.id = id;
 
   ws.on("message", (message) => {
-
     const data = JSON.parse(message);
 
-    if (data.chatname !== undefined && data.chatname == "BusidoChat") {
-      for (conn in all_active_connections) {
-        all_active_connections[conn].send(`{
-          "chatname": "BusidoChat",
-          "name": "${data.name}",
-          "message": "${data.message}",
-          "time": "${data.time}"
-        }`);
-      }
-    } else {
-
-      for (conn in all_active_connections) {
-        all_active_connections[conn].send(`{
+    for (conn in all_active_connections) {
+      all_active_connections[conn].send(`{
           "chatname": "${data.chatname}",
           "name": "${data.name}",
           "message": "${data.message}",
           "time": "${data.time}"
         }`);
-      }
-
     }
-
-  }).on('close', function() {
+  }).on("close", function () {
     delete all_active_connections[ws.id];
   });
 };

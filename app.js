@@ -5,7 +5,7 @@ var connectLiveReload = require("connect-livereload");
 const { initializeWebsocketServer } = require("./server/websocketserver");
 const { initializeAPI } = require("./server/api/main.js");
 const {
-  initializeDBSchema
+  initializeMariaDB, initializeDBSchema
 } = require("./server/database/main.js");
 
 // Create the express server
@@ -53,8 +53,9 @@ app.get("/registration.html", (req, res) => {
   initializeAPI(app);
   
   // Allowing top-level await
-  (async function () {
+(async function () {
   // Initialize the database
+  await initializeMariaDB();
   await initializeDBSchema();
   //start the web server
   const serverPort = process.env.PORT || 3000;
