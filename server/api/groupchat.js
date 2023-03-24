@@ -15,7 +15,7 @@ const reciveAllMessagesInterface = (req, res) => {
   const user = validateToken(req.cookies.token, res).name;
 
   try {
-    getGroupMessages(user).then((array) => {
+    getGroupMessages(user).then((result) => {
       if (result !== false) {
         res.status(201).json(result);
       }

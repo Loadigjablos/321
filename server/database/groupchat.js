@@ -11,7 +11,7 @@ const createNewGroup = async (name, users) => {
     id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL,
     message TEXT NOT NULL,
-    time VARCHAR(255) NOT NULL,
+    time VARCHAR(255),
     PRIMARY KEY (id)
   );`;
 
@@ -23,7 +23,7 @@ const addNewMessageToGroupp = async (chatname, name, message, time) => {
   const groupChatName = "groupchat_" + chatname;
   const newGroupChatQueryInsert = `INSERT INTO ${groupChatName} (id, username, message, time) VALUES (NULL, '${name}', '${message}', '${time}');`;
   await executeSQL(newGroupChatQueryInsert);
-}
+};
 
 const deleteGroup = async (name) => {
   const groupChatName = "groupchat_" + name;
@@ -31,7 +31,7 @@ const deleteGroup = async (name) => {
 
 const joinGroupp = async (user, groupName) => {
   // alter groupchats table with new user
-}
+};
 
 const getGroupMessages = async (user) => {
   const groupsQuery = `SELECT * FROM groupchats`;
@@ -39,25 +39,23 @@ const getGroupMessages = async (user) => {
 
   let allMessages = [];
 
-  groups.forEach(group => {
-    console.log(groups);
-    for (chatMember in JSON.parse(group.users)) {
-      if ((user = chatMember)) {
+  groups.forEach(async function (group) {
+    const databaseName = "groupchat_" + group.name;
+    const query = `SELECT * FROM ${databaseName}`;
 
-        const databaseName = "groupchat_" + group.name;
-
-        const query = `SELECT * FROM ${databaseName}`;
-        const allMessagesFromThisGroup = await executeSQL(query);
-
+    JSON.parse(group.users).forEach(async function (chatMember) {
+      if ((user == chatMember)) {
+        const data = await executeSQL(query);
         const groupChatJSON = {
           name: group.name,
           members: group.users,
-          messages: allMessagesFromThisGroup,
+          messages: data,
         };
+        console.log(groupChatJSON);
 
         allMessages.push(groupChatJSON);
       }
-    }
+    });
   });
   return allMessages;
   //const allMessages = await executeSQL(users);
@@ -68,5 +66,5 @@ module.exports = {
   getGroupMessages,
   deleteGroup,
   joinGroupp,
-  addNewMessageToGroupp
+  addNewMessageToGroupp,
 };
