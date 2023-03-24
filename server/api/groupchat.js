@@ -12,9 +12,9 @@ const {
  * @param res
  */
 const reciveAllMessagesInterface = async (req, res) => {
-  const user = validateToken(req.cookies.token, res).name;
-
   try {
+    const user = validateToken(req.cookies.token, res).name;
+
     const data = await getGroupMessages(user);
 
     if (data !== false) {
@@ -39,8 +39,8 @@ const reciveAllMessagesInterface = async (req, res) => {
  * @param res
  */
 const createGrouppInterface = (req, res) => {
-  const user = validateToken(req.cookies.token, res).name;
   try {
+    validateToken(req.cookies.token, res).name;
     let data = [];
     req.on("data", (chunk) => {
       data.push(chunk);
@@ -69,9 +69,8 @@ const createGrouppInterface = (req, res) => {
  * @param res
  */
 const deleteGroupInterface = (req, res) => {
-  validateToken(req.cookies.token, res).name;
-
   try {
+    validateToken(req.cookies.token, res).name;
     let data = [];
     req.on("data", (chunk) => {
       data.push(chunk);
@@ -95,9 +94,8 @@ const deleteGroupInterface = (req, res) => {
  * @param res
  */
 const joinGrouppInterface = (req, res) => {
-  const user = validateToken(req.cookies.token, res).name;
-
   try {
+    const user = validateToken(req.cookies.token, res).name;
     let data = [];
     req.on("data", (chunk) => {
       data.push(chunk);
