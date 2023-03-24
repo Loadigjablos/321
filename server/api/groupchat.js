@@ -4,7 +4,7 @@ const {
   getGroupMessages,
   deleteGroup,
   joinGroupp,
- } = require("../database/groupchat");
+} = require("../database/groupchat");
 
 /**
  *

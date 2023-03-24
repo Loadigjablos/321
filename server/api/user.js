@@ -51,7 +51,7 @@ const register = (req, res) => {
     });
   } catch (e) {
     console.log(e);
-    res.status(400).json({
+    res.status(500).json({
       message: "Registration Failed",
     });
   }
