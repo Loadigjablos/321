@@ -1,70 +1,96 @@
 const { executeSQL } = require("./main");
 
 const createNewGroup = async (name, users) => {
-  const groupChatName = "groupchat_" + name;
+  try {
+    const groupChatName = "groupchat_" + name;
 
-  const usersString = JSON.stringify(users);
+    const usersString = JSON.stringify(users);
 
-  const newGroupChatQueryInsert = `INSERT INTO groupchats (id, users, name) VALUES (NULL, '${usersString}', '${name}');`;
+    const newGroupChatQueryInsert = `INSERT INTO groupchats (id, users, name) VALUES (NULL, '${usersString}', '${name}');`;
 
-  const newGroupChatQueryDB = `CREATE TABLE ${groupChatName} (
-    id INT NOT NULL AUTO_INCREMENT,
-    username VARCHAR(255) NOT NULL,
-    message TEXT NOT NULL,
-    time VARCHAR(255),
-    PRIMARY KEY (id)
-  );`;
+    const newGroupChatQueryDB = `CREATE TABLE ${groupChatName} (
+      id INT NOT NULL AUTO_INCREMENT,
+      username VARCHAR(255) NOT NULL,
+      message TEXT NOT NULL,
+      time VARCHAR(255),
+      PRIMARY KEY (id)
+    );`;
 
-  await executeSQL(newGroupChatQueryInsert);
-  await executeSQL(newGroupChatQueryDB);
+    await executeSQL(newGroupChatQueryInsert);
+    await executeSQL(newGroupChatQueryDB);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
 };
 
 const addNewMessageToGroupp = async (chatname, name, message, time) => {
-  const groupChatName = "groupchat_" + chatname;
-  const newGroupChatQueryInsert = `INSERT INTO ${groupChatName} (id, username, message, time) VALUES (NULL, '${name}', '${message}', '${time}');`;
-  await executeSQL(newGroupChatQueryInsert);
+  try {
+    const groupChatName = "groupchat_" + chatname;
+    const newGroupChatQueryInsert = `INSERT INTO ${groupChatName} (id, username, message, time) VALUES (NULL, '${name}', '${message}', '${time}');`;
+    await executeSQL(newGroupChatQueryInsert);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
 };
 
 const deleteGroup = async (name) => {
-  const query = `DELETE FROM groupchats WHERE name = '${name}'`;
-  await executeSQL(query);
+  try {
+    const query = `DELETE FROM groupchats WHERE name = '${name}'`;
+    await executeSQL(query);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
 };
 
 const joinGroupp = async (user, groupName) => {
+  try {
+    const querySelect = `SELECT users FROM groupchats WHERE name = '${groupName}'`;
+    const result = await executeSQL(querySelect);
 
-  const querySelect = `SELECT users FROM groupchats WHERE name = '${groupName}'`;
-  const result = await executeSQL(querySelect);
+    let newThing = JSON.parse(result[0].users);
+    newThing.push(user);
 
-  let newThing = JSON.parse(result[0].users);
-  newThing.push(user);
-
-  const queryUpdate = `UPDATE groupchats SET users = '${JSON.stringify(newThing)}' WHERE name = '${groupName}'`;
-  await executeSQL(queryUpdate);
+    const queryUpdate = `UPDATE groupchats SET users = '${JSON.stringify(
+      newThing
+    )}' WHERE name = '${groupName}'`;
+    await executeSQL(queryUpdate);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
 };
 
 const getGroupMessages = async (user) => {
-  const groupsQuery = `SELECT * FROM groupchats`;
-  const groups = await executeSQL(groupsQuery);
+  try {
+    const groupsQuery = `SELECT * FROM groupchats`;
+    const groups = await executeSQL(groupsQuery);
 
-  let allMessages = [];
-  console.log("GROUP= " + groups + "------------------------------------------------------------------------------------");
-  for (let group of groups) {
-    const databaseName = "groupchat_" + group.name;
-    const query = `SELECT * FROM ${databaseName}`;
+    let allMessages = [];
 
-    for (let chatMember of JSON.parse(group.users)) {
-      if ((user == chatMember)) {
-        const data = await executeSQL(query);
-        let groupChatJSON = {
-          name: group.name,
-          members: JSON.parse(group.users),
-          messages: data,
-        };
-        allMessages.push(groupChatJSON);
+    for (let group of groups) {
+      const databaseName = "groupchat_" + group.name;
+      const query = `SELECT * FROM ${databaseName}`;
+
+      for (let chatMember of JSON.parse(group.users)) {
+        if (user == chatMember) {
+          const data = await executeSQL(query);
+          let groupChatJSON = {
+            name: group.name,
+            members: JSON.parse(group.users),
+            messages: data,
+          };
+          allMessages.push(groupChatJSON);
+        }
       }
     }
+    return allMessages;
+  } catch (e) {
+    console.log(e);
+    return null;
   }
-  return allMessages;
 };
 
 module.exports = {

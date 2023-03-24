@@ -117,16 +117,23 @@ const login = (req, res) => {
  * @param res
  */
 const deleteMyself = (req, res) => {
-  const user = validateToken(req.cookies.token, res).name;
+  try {
+    const user = validateToken(req.cookies.token, res).name;
 
-  if (deleteUserbyName(user) != false) {
-    res.status(201).json({
-      message: "Deleted a user",
+    if (deleteUserbyName(user) != false) {
+      res.status(201).json({
+        message: "Deleted a user",
+      });
+    }
+    res.status(400).json({
+      message: "Unable to Delete yourself",
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({
+      message: "Failed",
     });
   }
-  res.status(400).json({
-    message: "Unable to Delete yourself",
-  });
 };
 
 /**
@@ -135,16 +142,23 @@ const deleteMyself = (req, res) => {
  * @param res
  */
 const getAllUsersInterface = (req, res) => {
-  validateToken(req.cookies.token, res);
+  try {
+    validateToken(req.cookies.token, res);
 
-  getAllUsers().then((users) => {
-    if (users != false) {
-      res.status(200).json(users);
-    }
-    res.status(404).json({
-      message: "No Users found",
+    getAllUsers().then((users) => {
+      if (users != false) {
+        res.status(200).json(users);
+      }
+      res.status(404).json({
+        message: "No Users found",
+      });
     });
-  });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({
+      message: "Failed",
+    });
+  }
 };
 
 module.exports = { register, login, deleteMyself, getAllUsersInterface };
