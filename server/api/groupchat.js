@@ -1,21 +1,34 @@
 const { validateToken } = require("../validation/token");
-const {  } = require("../database/groupchat");
+const { 
+  createNewGroup,
+  getGroupMessages,
+  deleteGroup,
+  joinGroupp,
+ } = require("../database/groupchat");
 
 /**
  *
  * @param req
  * @param res
  */
-const reciveAllMessages = (req, res) => {
+const reciveAllMessagesInterface = (req, res) => {
   const user = validateToken(req.cookies.token, res).name;
 
-  const result = getGroupMessages(user);
-  if (result !== false) {
-    res.status(201).json(result);
+  try {
+    getGroupMessages(user).then((array) => {
+      if (result !== false) {
+        res.status(201).json(result);
+      }
+      res.status(400).json({
+        message: "Failed",
+      });
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({
+      message: "Failed",
+    });
   }
-  res.status(201).json({
-    message: "Unable to get data",
-  });
 };
 
 /**
@@ -23,16 +36,29 @@ const reciveAllMessages = (req, res) => {
  * @param req
  * @param res
  */
-const createGroupp = (req, res) => {
+const createGrouppInterface = (req, res) => {
   const user = validateToken(req.cookies.token, res).name;
+  try {
+    let data = [];
+    req.on("data", (chunk) => {
+      data.push(chunk);
+    });
+    req.on("end", () => {
+      const name = JSON.parse(data).name;
+      const users = JSON.parse(data).users;
 
-  getGroupMessages(user);
-  if (result !== false) {
-    res.status(201).json(result);
+      createNewGroup(name, users).then(() => {
+        res.status(201).json({
+          message: "Success",
+        });
+      });
+
+    });
+  } catch (e) {
+    res.status(500).json({
+      message: "Failed",
+    });
   }
-  res.status(201).json({
-    message: "Unable to get data",
-  });
 };
 
 /**
@@ -40,18 +66,42 @@ const createGroupp = (req, res) => {
  * @param req
  * @param res
  */
-const deleteGroup = (req, res) => {
+const deleteGroupInterface = (req, res) => {
   const user = validateToken(req.cookies.token, res).name;
 
-  // get all messages from db
+  try {
 
-  res.status(201).json({
-    message: "Deleted a user",
-  });
+    deleteGroup();
+
+  } catch (e) {
+    res.status(500).json({
+      message: "Failed",
+    });
+  }
+};
+
+/**
+ *
+ * @param req
+ * @param res
+ */
+const joinGrouppInterface = (req, res) => {
+  const user = validateToken(req.cookies.token, res).name;
+
+  try {
+
+    joinGroupp(user);
+
+  } catch (e) {
+    res.status(500).json({
+      message: "Failed",
+    });
+  }
 };
 
 module.exports = {
-  reciveAllMessages,
-  deleteGroup,
-  
+  reciveAllMessagesInterface,
+  deleteGroupInterface,
+  createGrouppInterface,
+  joinGrouppInterface
 };
