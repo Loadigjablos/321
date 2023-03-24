@@ -17,16 +17,19 @@ const onConnection = (ws) => {
   let id = global_counter++;
 
   console.log("[" + id + "] New websocket connection");
-
+  console.log("ALL CONNECTIONS: " + ws);
+  console.log("GLOBAL Connection: " + global_counter++);
   all_active_connections[id] = ws;
   ws.id = id;
 
   ws.on("message", (message) => {
     const messageParts = (Buffer.from(message).toString()).split(';');
 
+    console.log(messageParts);
+
     if(messageParts[0] == "StatusCheck") {
 
-    } else if(messageParts[0] == "message") {
+    } else if(messageParts[0] == "Message") {
       const chatName = messageParts[3];
       const name = messageParts[1];
       const messageS = messageParts[2]
@@ -35,8 +38,6 @@ const onConnection = (ws) => {
         all_active_connections[conn].send(message);  
       }
       addNewMessageToGroupp(chatName, name, messageS, nowTime);
-      console.log(messageParts);
-      console.log(chatName, name, messageS, nowTime);
     }
   }).on("close", function () {
     delete all_active_connections[ws.id];

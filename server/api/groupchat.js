@@ -26,7 +26,7 @@ const reciveAllMessagesInterface = async (req, res) => {
     }
 
   } catch (e) {
-    console.log(e);
+    console.log("ERROR IN GROUPCHAT: " + e);
     res.status(500).json({
       message: "Failed",
     });

@@ -22,6 +22,7 @@ function login() {
                 return;
             }
             if (request.status == 200 || request.status == 201) {
+                document.cookie = "username=" + username.value + "; path=/";
                 document.location.href = "index.html";
             } else {
                 customAlert(1, "Username or password field are wrong");
