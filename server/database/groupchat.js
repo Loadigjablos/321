@@ -26,19 +26,19 @@ const addNewMessageToGroupp = async (chatname, name, message, time) => {
 };
 
 const deleteGroup = async (name) => {
-  const query = `DELETE FROM groupchats WHERE name = ${name}`;
+  const query = `DELETE FROM groupchats WHERE name = '${name}'`;
   await executeSQL(query);
 };
 
 const joinGroupp = async (user, groupName) => {
 
-  const querySelect = `SELECT users FROM groupchats WHERE name = ${groupName}`;  
+  const querySelect = `SELECT users FROM groupchats WHERE name = '${groupName}'`;
   const result = await executeSQL(querySelect);
 
   let newThing = JSON.parse(result[0].users);
   newThing.push(user);
 
-  const queryUpdate = `UPDATE groupchats SET users = '${JSON.stringify(newThing)}' WHERE name = ${groupName}`;
+  const queryUpdate = `UPDATE groupchats SET users = '${JSON.stringify(newThing)}' WHERE name = '${groupName}'`;
   await executeSQL(queryUpdate);
 };
 
@@ -48,24 +48,22 @@ const getGroupMessages = async (user) => {
 
   let allMessages = [];
 
-  groups.forEach(async function (group) {
+  for (let group of groups) {
     const databaseName = "groupchat_" + group.name;
     const query = `SELECT * FROM ${databaseName}`;
 
-    JSON.parse(group.users).forEach(async function (chatMember) {
+    for (let chatMember of JSON.parse(group.users)) {
       if ((user == chatMember)) {
         const data = await executeSQL(query);
-        const groupChatJSON = {
+        let groupChatJSON = {
           name: group.name,
           members: JSON.parse(group.users),
           messages: data,
         };
         allMessages.push(groupChatJSON);
-        return allMessages
-
       }
-    });
-  });
+    }
+  }
   return allMessages;
 };
 

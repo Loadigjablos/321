@@ -6,6 +6,9 @@ const {
   getOneUserByName,
   getAllUsers,
 } = require("../database/user");
+const {
+  joinGroupp
+} = require("../database/groupchat");
 
 //source: https://flaviocopes.com/node-request-data/
 
@@ -39,6 +42,8 @@ const register = (req, res) => {
       }
 
       registerNewUser(name, password);
+
+      joinGroupp(name, "BusidoChat");
 
       res.status(200).json({
         message: "user succesfuly registerd",

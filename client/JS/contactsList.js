@@ -1,45 +1,22 @@
-const testGroup = [
-    {
-        "name": "BusidoChat",
-        "members": [
-            "Levan", "Mat", "Streit"
-        ],
-        "messages": [
-            {
-                "username": "Mat",
-                "message": "Jojo"
-            },
-            {
-                "username": "Mat",
-                "message": "Kambodjo"
-            },
-            {
-                "username": "Brat",
-                "message": "Tadjikistan one love"
-            },
-        ]
-    },
-    {
-        "name": "Developers",
-        "members": [
-            "Kor", "Mat", "Mor"
-        ],
-        "messages": [
-            {
-                "username": "Abobus",
-                "message": "Amogus"
-            },
-            {
-                "username": "Mat",
-                "message": "Reyniaaaaa"
-            },
-            {
-                "username": "Levan",
-                "message": "DAVIIIIIIIII GAVNOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-            },
-        ]
+let testGroup = [];
+
+let request;
+request = new XMLHttpRequest();
+request.open("GET", "http://localhost:3000/api/AllMessages");
+request.onreadystatechange = onRequstUpdate;
+request.send();
+function onRequstUpdate() {
+    if (request.readyState < 4) {
+        return;
     }
-]
+    if (request.status == 200 || request.status == 201) {
+        testGroup = JSON.parse(request.responseText);
+        console.log(testGroup);
+    } else {
+        customAlert(1, "Username or password field are wrong");
+    }
+}
+
 function contactList(allGroups) {
     const contactList = document.getElementById("contactList");
     for (let i = 0; i < allGroups.length; i++) {
