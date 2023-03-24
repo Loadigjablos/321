@@ -1,24 +1,27 @@
 let testGroup = [];
 
-let request;
-request = new XMLHttpRequest();
-request.open("GET", "http://localhost:3000/api/AllMessages");
-request.onreadystatechange = onRequstUpdate;
-request.send();
-function onRequstUpdate() {
-    if (request.readyState < 4) {
-        return;
-    }
-    if (request.status == 200 || request.status == 201) {
-        testGroup = JSON.parse(request.responseText);
-        console.log(testGroup);
-    } else {
-        customAlert(1, "Username or password field are wrong");
+function GetAllContactsRequest() {
+    let request = new XMLHttpRequest();
+    request.open("GET", "http://localhost:3000/api/AllMessages");
+    request.onreadystatechange = onRequstUpdate;
+    request.send();
+
+    function onRequstUpdate() {
+        if (request.readyState < 4) {
+            return;
+        }
+        if (request.status == 200 || request.status == 201) {
+            testGroup = JSON.parse(request.responseText);
+            contactList(testGroup);
+            const contactList = document.getElementById("contactList");
+            contactList.firstChild.click();
+        } else {
+            customAlert(1, "Unable To Get Any Data");
+        }
     }
 }
 
 function contactList(allGroups) {
-    const contactList = document.getElementById("contactList");
     for (let i = 0; i < allGroups.length; i++) {
         for (let j = 0; j < allGroups[i].members.length; j++) {
             if (allGroups[i].members[j].includes(actualUser)) {
@@ -26,7 +29,6 @@ function contactList(allGroups) {
             }
         }
     }
-    contactList.firstChild.click();
 }
 function createContact(group, contactType = 0) {
     //Create DOM elements
@@ -77,5 +79,4 @@ function hideList() {
     dropList.style.display = "none";
     searchField.style.display = "none";
 }
-
-contactList(testGroup);
+GetAllContactsRequest();

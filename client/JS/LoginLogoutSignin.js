@@ -53,6 +53,9 @@ function signIn() {
                 return;
             }
             if (request.status == 200 || request.status == 201) {
+                let requestLogin = new XMLHttpRequest();
+                requestLogin.open("POST", "http://localhost:3000/api/Login");
+                requestLogin.send(JSON.stringify(registerData));
                 document.location.href = "index.html";
             } else {
                 customAlert(1, "Username or password field are wrong");

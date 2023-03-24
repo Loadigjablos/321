@@ -24,8 +24,20 @@ socket.addEventListener("message", (event) => {
       if (messageParts[2].includes(actualUser)) {
         const groupData = {
           "name": messageParts[1],
-          "members": messageParts[2].split(','),
-          "messages": []
+          "members": messageParts[2].split(',')
+        }
+        let request = new XMLHttpRequest();
+        request.open("POST", "http://localhost:3000/api/Groupp");
+        request.onreadystatechange = onRequstUpdate;
+        request.send(JSON.stringify(groupData));
+    
+        function onRequstUpdate() {
+            if (request.readyState < 4) {
+                return;
+            }
+            if (request.status == 200 || request.status == 201) {} else {
+                customAlert(1, "Unable To Create");
+            }
         }
         createContact(groupData);
       } else {
