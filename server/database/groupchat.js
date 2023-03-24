@@ -26,11 +26,20 @@ const addNewMessageToGroupp = async (chatname, name, message, time) => {
 };
 
 const deleteGroup = async (name) => {
-  const groupChatName = "groupchat_" + name;
+  const query = `DELETE FROM groupchats WHERE name = ${name}`;
+  await executeSQL(query);
 };
 
 const joinGroupp = async (user, groupName) => {
-  // alter groupchats table with new user
+
+  const querySelect = `SELECT users FROM groupchats WHERE name = ${groupName}`;  
+  const result = await executeSQL(querySelect);
+
+  let newThing = JSON.parse(result[0].users);
+  newThing.push(user);
+
+  const queryUpdate = `UPDATE groupchats SET users = '${JSON.stringify(newThing)}' WHERE name = ${groupName}`;
+  await executeSQL(queryUpdate);
 };
 
 const getGroupMessages = async (user) => {
@@ -48,17 +57,16 @@ const getGroupMessages = async (user) => {
         const data = await executeSQL(query);
         const groupChatJSON = {
           name: group.name,
-          members: group.users,
+          members: JSON.parse(group.users),
           messages: data,
         };
-        console.log(groupChatJSON);
-
         allMessages.push(groupChatJSON);
+        return allMessages
+
       }
     });
   });
   return allMessages;
-  //const allMessages = await executeSQL(users);
 };
 
 module.exports = {

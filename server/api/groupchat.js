@@ -14,15 +14,19 @@ const {
 const reciveAllMessagesInterface = (req, res) => {
   const user = validateToken(req.cookies.token, res).name;
 
+  //const data = await getGroupMessages(user);
+
   try {
-    getGroupMessages(user).then((result) => {
-      if (result !== false) {
-        res.status(201).json(result);
-      }
+    //const data = await getGroupMessages(user);
+
+    if (data !== false) {
+      res.status(201).json(data);
+    } else {
       res.status(400).json({
         message: "Failed",
       });
-    });
+    }
+
   } catch (e) {
     console.log(e);
     res.status(500).json({
@@ -67,12 +71,19 @@ const createGrouppInterface = (req, res) => {
  * @param res
  */
 const deleteGroupInterface = (req, res) => {
-  const user = validateToken(req.cookies.token, res).name;
+  validateToken(req.cookies.token, res).name;
 
   try {
+    let data = [];
+    req.on("data", (chunk) => {
+      data.push(chunk);
+    });
+    req.on("end", () => {
+      const name = JSON.parse(data).name;
 
-    deleteGroup();
+      deleteGroup(name);
 
+    });
   } catch (e) {
     res.status(500).json({
       message: "Failed",
@@ -89,9 +100,17 @@ const joinGrouppInterface = (req, res) => {
   const user = validateToken(req.cookies.token, res).name;
 
   try {
-
-    joinGroupp(user);
-
+    let data = [];
+    req.on("data", (chunk) => {
+      data.push(chunk);
+    });
+    req.on("end", () => {
+      const name = JSON.parse(data).name;
+      joinGroupp(user, name);
+      res.status(200).json({
+        message: "Succes",
+      });
+    });
   } catch (e) {
     res.status(500).json({
       message: "Failed",
