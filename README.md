@@ -22,9 +22,15 @@ npx tailwindcss -i ./client/CSS/style.css -o ./client/CSS/tailWind.css --watch
 2. Private group not funktion
 3. After account deleting the user can work like a ghost up to 6 hours
 ### Errors
-If you have any errors, make sure that the following points are met.
+If you have any errors, try to following this points.
 1. Node.JS The latest version is installed
+![alt text](https://github.com/Loadigjablos/321/tree/main/imagesForReadme/node.png?raw=true)
 2. The "npm install yarn" command has been run.
+![alt text](https://github.com/Loadigjablos/321/tree/main/imagesForReadme/yarnInstall.png?raw=true)
 3. Before the launch of "docker compose up", all the leading containers were deleted and the MariaDB repository was deleted.
-4. Run the command "yarn dev" or "npm run dev".
+![alt text](https://github.com/Loadigjablos/321/tree/main/imagesForReadme/emptyContainer.png?raw=true)
+4. Run the command "docker compose up" and then in another terminal "yarn dev" or "npm run dev".
+![alt text](https://github.com/Loadigjablos/321/tree/main/imagesForReadme/dockerStarted.png?raw=true)
+5. Go to localhost:3000 and try to work in different windows
+![alt text](https://github.com/Loadigjablos/321/tree/main/imagesForReadme/result.png?raw=true)
 p.s. The launch of the program was tested on more than 10 devices, 5 of them were tested by other people.
