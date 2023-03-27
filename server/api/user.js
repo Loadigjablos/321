@@ -82,7 +82,7 @@ const login = (req, res) => {
           });
         }
         const currentUser = user[0];
-
+        try {
         if (!currentUser.name) {
           res.status(404).json({
             message: "User was not found",
@@ -102,6 +102,11 @@ const login = (req, res) => {
         res.status(201).json({
           message: "Login successful",
         });
+        } catch (pizdec) {
+          res.status(500).json({
+            message: "Login error",
+          });
+        }
       });
     });
   } catch (e) {

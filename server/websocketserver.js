@@ -26,7 +26,9 @@ const onConnection = (ws) => {
     console.log(messageParts);
     const nowTime = String(new Date((parseInt(new Date().toJSON().slice(11, 13)) * 3600 + parseInt(new Date().toJSON().slice(14, 16)) * 60 + 3600) * 1000).toJSON().slice(11, 16));
     if (messageParts[0] == "StatusCheck") {
-
+      for (conn in all_active_connections) {
+        all_active_connections[conn].send(message);  
+      }
     } else if (messageParts[0] == "Message") {
       const chatName = messageParts[3];
       const name = messageParts[1];

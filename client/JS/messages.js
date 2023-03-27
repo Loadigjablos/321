@@ -9,7 +9,9 @@ function showGroup(group, contactType = 0) {
     const groupInformation = document.createElement("div");
     const groupName = document.createElement("div");
     const groupMembers = document.createElement("div");
+    groupMembers.id = "memberButton";
     const statusWindow = document.createElement("div");
+    statusWindow.id = "allMembers";
     //Hide show status
     groupMembers.addEventListener("click", function() {
         if (statusWindow.style.display == "none" || statusWindow.style.display == "") {
@@ -21,7 +23,8 @@ function showGroup(group, contactType = 0) {
                 let groupMemberName = document.createElement("div");
                 groupMemberDiv.className = "flex flex-row min-w-[6rem] bg-[rgb(218,33,110)]";
                 groupMemberName.className = "text-[1rem] p-2 w-auto shadow-lg rounded-6 text-white";
-                groupMemberStatus.className = "absolute right-0 mt-[0.5rem] bg-gray-300 w-[20px] h-[20px]"
+                groupMemberStatus.className = "absolute right-0 mt-[10%] ml-[0.5rem] mr-[0.2rem] bg-gray-300 w-[15px] h-[15px] rounded-[50%]"
+                groupMemberStatus.title = "Offline";
                 groupMemberName.innerText = group.members[i];
                 groupMemberDiv.appendChild(groupMemberName);
                 groupMemberDiv.appendChild(groupMemberStatus);

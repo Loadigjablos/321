@@ -10,7 +10,6 @@ socket.addEventListener("open", (event) => {
 socket.addEventListener("message", (event) => {
   let reader = new FileReader();
   reader.onload = function() {
-    console.log(`Received message: ${reader.result}`);
     const messageParts = reader.result.split(';');
     if (messageParts[0] == "Message") {
       if (actualChat == messageParts[3] || actualChat == messageParts[1]) {
@@ -61,6 +60,27 @@ socket.addEventListener("message", (event) => {
     } else if (messageParts[0] == "StatusCheck") {
       if (messageParts[1] != actualUser) {
         console.log(messageParts[1] + " Is online");
+        let clickMe = document.getElementById("memberButton");
+        let groupUsers = document.getElementById("allMembers");
+        if (messageParts[2] != undefined) {
+          for (let i = 0; i < groupUsers.children.length; i++) {
+            if (messageParts[1] == groupUsers.children[i].children[0].innerText) {
+              groupUsers.children[i].children[1].className = groupUsers.children[i].children[1].className + " bg-gray-300";
+              groupUsers.children[i].children[1].title = "Offline";
+              clickMe.click();
+              clickMe.click();
+            }
+          }
+        } else {
+          for (let i = 0; i < groupUsers.children.length; i++) {
+            if (messageParts[1] == groupUsers.children[i].children[0].innerText) {
+              if (groupUsers.children[i].children[1].title == "Offline") {
+                groupUsers.children[i].children[1].title = "Online";
+                groupUsers.children[i].children[1].className = groupUsers.children[i].children[1].className + " bg-lime-600";
+              }
+            }
+          }
+       }
       }
     }
   }
@@ -90,4 +110,8 @@ function deleteMyself() {
   document.location.href = "gate.html";
 }
 
-//setInterval(function(){socket.send("StatusCheck;" + actualUser)}, 5000);
+window.onbeforeunload = function() {
+  socket.send("StatusCheck;" + actualUser + ";" + 1);
+}
+
+setInterval(function(){socket.send("StatusCheck;" + actualUser)}, 3000);
